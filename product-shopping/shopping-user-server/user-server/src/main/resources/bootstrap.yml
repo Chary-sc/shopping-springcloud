@@ -1,0 +1,31 @@
+# bootstrap（文件名） 先从配置中心拿文件
+spring:
+   profiles:
+      active: dev-7755
+
+---
+# 配置服务器端口
+server:
+   port: 7755
+  
+spring:
+   profiles: dev-7755
+   application:
+      name: user-server
+      
+   cloud:
+      config:
+         label: master   
+         name: user #{name}-{profile}.yml
+         profile: dev
+         discovery:
+            enabled: true
+            service-id: config-server
+   
+eureka:
+   client:
+      service-url:
+         defaultZone: http://127.0.0.1:5555/eureka    
+
+   
+# java -jar snacknet.jar --spring.profiles.active=dev-7788

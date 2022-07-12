@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/user.css" type="text/css">
+
+
+</head>
+<body class="user">
+
+    <div class="user-login">
+
+        <div class="user-head">
+            <img src="img/logo.png"> 
+            <span>欢迎登录</span>
+        </div>
+
+        <div class="user-body">
+            
+            <div class="user-text" onkeydown="if(event.keyCode==13) {document.getElementById('login').click();}">
+                <a href="#" class="aplogin">账号密码登录</a>
+                <a href="#" class="cdlogin">验证码登录</a>
+                <div class="login-information">
+                    <b>账号</b> <input type="text" id="account" v-model="email"><br><br>
+                    <b>密码</b> <input type="password" id="password" v-model="pwd"><br>
+                    <a href="#" class="forgetPassword">忘记密码</a>
+                    <a href="javascript:void(0)" id="login" @click="login">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录</a>
+                    <a href="./reg.html" id="reg">立即注册</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    
+    
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="../product/index.html"><img src="img/logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: +65 11.188.888</li>
+                            <li>Email: hello@colorlib.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <h6>相关链接</h6>
+                        <ul>
+                            <li><a href="#">关于我们</a></li>
+                            <li><a href="#">关于我们的店铺</a></li>
+                            <li><a href="#">购物保障</a></li>
+                            <li><a href="#">物流信息</a></li>
+                            <li><a href="#">隐私政策</a></li>
+                            <li><a href="#">地图定位</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">我们是谁</a></li>
+                            <li><a href="#">关于服务</a></li>
+                            <li><a href="#">项目工程</a></li>
+                            <li><a href="#">联系我们</a></li>
+                            <li><a href="#">创造</a></li>
+                            <li><a href="#">推荐</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>欢迎光临果蔬商城</h6>
+                        <p>我们竭力给您带来最好的服务</p>
+                        <form action="#">
+                            <input type="text" placeholder="Enter your mail">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text"><p>
+        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with  by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       </div>
+    </footer>
+</body>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/vue.js"></script>
+<script>
+
+const vm = new Vue({
+	el:'.user-text',
+	data:{
+		email:'',
+		pwd:''
+	},
+	methods:{
+		login(){
+			this.email = $.trim(this.email);
+
+			if( this.email == "" || this.email == null){
+				return alert("邮箱不能为空！");
+			}else if( this.pwd == "" || this.pwd == null){
+				return alert("密码不能为空！");
+			}
+			
+			$.post("user/login",{
+				email: this.email,
+				pwd: this.pwd
+			},(data)=>{
+				if(data.code == 600){
+					return alert("账号未注册，暂只支持邮箱注册");
+				}else if(data.code == 200){
+					if(data.data.status == 1){
+						location.href = "../product/index.html";
+					}else{
+						location.href = "./manage-shopping.html";
+					}
+					
+				}else{
+					alert("密码错误");
+				}
+			},"json");
+			
+		}
+	}
+	
+})
+	
+</script>
+
+
+</html>

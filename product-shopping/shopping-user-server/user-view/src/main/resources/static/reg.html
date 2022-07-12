@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/user.css" type="text/css">
+
+
+</head>
+<body class="user">
+
+    <div class="user-login">
+
+        <div class="user-head">
+            <img src="img/logo.png"> 
+            <span>欢迎注册</span>
+        </div>
+
+        <div class="user-body" onkeydown="if(event.keyCode==13) {document.getElementById('nowreg').click();}">
+            <div class="user-text">
+                <div class="reg-information">
+                    <b class="title">请填写相关注册信息</b><br>
+                    <b class="b1">请输入邮箱</b> <input type="text" id="e-mail" v-model="email"><br><br>
+                    <b class="b2">请输入验证码</b> <input type="number" id="code"><input type="button" value="发送验证码" class="sendcode" id="in_code"  @click="sendEmail"><br><br>
+                    <b class="b3">请确认密码</b> <input type="password" id="newpd" v-model="pwd"><br><br>
+                    <a href="javascript:void(0)" id="nowreg" @click="reg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注&nbsp;&nbsp;&nbsp;&nbsp;册</a>
+                    <a href="./login.html" id="returnlogin">返回登录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="../product/index.html"><img src="img/logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: +65 11.188.888</li>
+                            <li>Email: hello@colorlib.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <h6>相关链接</h6>
+                        <ul>
+                            <li><a href="#">关于我们</a></li>
+                            <li><a href="#">关于我们的店铺</a></li>
+                            <li><a href="#">购物保障</a></li>
+                            <li><a href="#">物流信息</a></li>
+                            <li><a href="#">隐私政策</a></li>
+                            <li><a href="#">地图定位</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">我们是谁</a></li>
+                            <li><a href="#">关于服务</a></li>
+                            <li><a href="#">项目工程</a></li>
+                            <li><a href="#">联系我们</a></li>
+                            <li><a href="#">创造</a></li>
+                            <li><a href="#">推荐</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>欢迎光临果蔬商城</h6>
+                        <p>我们竭力给您带来最好的服务</p>
+                        <form action="#">
+                            <input type="text" placeholder="Enter your mail">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text"><p>
+        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with  by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       </div>
+    </footer>
+</body>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/vue.js"></script>
+<script>
+
+	const vm = new Vue({
+		el:'.user-text',
+		data:{
+			email:'',
+			pwd:'',
+			code:''
+		},
+		methods:{
+			reg(){
+				this.email = $.trim(this.email);
+				let in_code = $('#code').val();
+
+				if( this.email == "" || this.email == null){
+					return alert("邮箱不能为空！");
+				}else if( in_code == "" || in_code == null){
+					return alert("验证码不能为空！");
+				}else if( this.code != in_code){
+					return alert("验证码错误！");
+				}else if( this.pwd == "" || this.pwd == null){
+					return alert("密码不能为空！");
+				}
+				
+				$.post("user/reg",{
+					email: this.email,
+					pwd: this.pwd,
+					code: this.code
+				},(data)=>{
+					if(data.code == 200){
+						alert("注册成功,点击登录");
+						location.href = "./login.html";
+					}else if(data.code == 501){
+						alert("验证码已失效，请重新发送");
+					}else if(data.code == 601){
+						alert("账号已存在");
+					}else{
+						alert("网络不佳");
+					}
+
+				},"json");
+				
+			},
+			sendEmail(){
+				var email_reg = /^[\da-zA-Z]+@[\da-z]+\.[a-z.]{2,}$/;
+				this.email = $.trim(this.email);
+				
+				if(!email_reg.test(this.email)){
+					return alert("邮箱不符合规范，暂支持邮箱注册！");
+				}
+				
+				//生成随机数
+				let code = '';
+				this.code = '';
+				for(let i = 0; i < 6; i ++ ){
+					code += Math.ceil(Math.random()*9);
+				}
+				this.code = code;
+				
+				//发送验证码定时器
+				let times = 60;
+				$("#in_code").attr("disabled",true);
+				$('#in_code').val( times + "s后重新发");
+				
+				var send_time = setInterval(function() {
+					  if (times > 0) {
+						  times -= 1;
+						  $('#in_code').val( times + "s后重新发");
+					  } else {
+						$('#in_code').val( "发送验证码");
+						$("#in_code").attr("disabled",false);
+					    clearInterval(send_time);
+					  }
+					}, 1000);
+				
+				
+				$.post("user/sendEmail",{
+					email:this.email,
+					code: this.code
+				},(data)=>{
+					if(data.code == 200){
+						this.code = data.data;
+					}else if(data.code == 601){
+						clearInterval(send_time);
+						$('#in_code').val( "发送验证码");
+						$("#in_code").attr("disabled",false);
+						alert("账号已存在");
+					}else{
+						clearInterval(send_time);
+						$('#in_code').val( "发送验证码");
+						$("#in_code").attr("disabled",false);
+						alert("网络不佳");
+					}
+
+				},"json");
+				
+			}
+		}
+		
+	})
+	
+</script>
+
+</html>

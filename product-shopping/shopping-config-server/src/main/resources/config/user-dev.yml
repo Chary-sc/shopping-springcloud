@@ -1,0 +1,7 @@
+  
+# 日志配置
+logging:
+   level:
+      com.chary.snacknet.mapper: debug
+   
+# java -jar snacknet.jar --spring.profiles.active=dev-7788

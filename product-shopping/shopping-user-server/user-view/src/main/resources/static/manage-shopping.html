@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+  <div id="manage">
+	  
+	  <el-container>
+	    <el-header>
+			<el-menu
+				class="el-menu-demo"
+				mode="horizontal"
+				background-color="#545c64"
+				text-color="#fff"
+				active-text-color="#ffd04b">
+				<el-menu-item index="1"><a href="./manage-shopping.html" ><img src="img/logo.png" /></a></el-menu-item>
+				<el-menu-item index="2" style="left: 72%;">  
+					<span v-if="email != 'Click Login'">欢迎管理员，{{email}} &nbsp;&nbsp;&nbsp;&nbsp;<a href="./login.html">切换账号</a></span>
+					<span v-else><a href="./login.html">{{email}}</a></span>
+				</el-menu-item>
+			</el-menu>
+		</el-header>
+		
+	    <el-container>
+	    
+	    <div class="aside">
+	    	 <el-aside width="240px">
+			  <el-row class="tac">
+				<el-col>
+					<el-menu
+						default-active="2"
+						class="el-menu-vertical-demo"
+						background-color="#545c64"
+						text-color="#fff"
+						active-text-color="#ffd04b">
+						<el-submenu index="1">
+							<template slot="title">
+							  <i class="el-icon-goods"></i>
+							  <span>商品管理</span>
+							</template>
+							<el-menu-item-group>
+							  <el-menu-item index="1-1" @click="showPage('goods')">商品管理</el-menu-item>
+							  <el-menu-item index="1-2" @click="showPage('type')">商品分类</el-menu-item>
+							</el-menu-item-group>
+						</el-submenu>
+						<el-menu-item index="2" @click="showPage('user')">
+							<i class="el-icon-user"></i>
+							<span slot="title">用户管理</span>
+						</el-menu-item>
+						<el-menu-item index="3" @click="showPage('order')">
+							<i class="el-icon-document"></i>
+							<span slot="title">订单管理</span>
+						</el-menu-item>
+					</el-menu>
+				</el-col>
+			</el-row>
+			</el-aside>
+	    </div>
+	     
+		
+	      <el-main >
+			
+			<div id="manage-goods">
+				
+				<template>				
+					
+					<el-row>
+						<el-button type="success" icon="el-icon-plus" @click="addDialogFormVisible = true">添加</el-button>
+					    <el-input placeholder="请输入商品名" v-model="searchInput" class="input-with-select" style="width: 800px;margin-left: 700px;"></el-input>
+					</el-row>
+					
+				  <el-table
+					:data="currentPageGoodsInfo.filter(data => !searchInput || data.gname.toLowerCase().includes(searchInput.toLowerCase()))"
+				    style="width: 100%">
+					<el-table-column
+					  prop="gno"
+					  label=""
+					  width="120">
+					</el-table-column>
+				    <el-table-column
+				      label="商品名"
+				      width="180">
+				      <template slot-scope="scope">
+				        <el-popover trigger="hover" placement="top">
+				          <p>名称: {{ scope.row.intro }}</p>
+						  <p>库存: {{ scope.row.balance }}</p>
+						  <p>价钱: {{ scope.row.price }}/{{scope.row.weight + scope.row.unit}}</p>
+				          <div slot="reference" class="name-wrapper">
+				            <el-tag size="medium">{{ scope.row.gname }}</el-tag>
+				          </div>
+				        </el-popover>
+				      </template>
+				    </el-table-column>
+					<el-table-column
+					  prop="pics"
+					  label="图片"
+					  width="200">
+					  <template slot-scope="scope">
+						<img :src="scope.row.pics" id="goods-pics"/>
+					  </template>
+					  
+					</el-table-column>
+					<el-table-column
+					  prop="descr"
+					  label="描述"
+					  width="720">
+					</el-table-column>
+					<el-table-column
+					    prop="tno"
+					    label="分类"
+					    width="100"
+					    :filters="type"
+					    :filter-method="filterTagType"
+					    filter-placement="bottom-end">
+					    <template slot-scope="scope">
+					    <el-tag
+					        disable-transitions>{{scope.row.tno == 1 ? "水果" : "蔬菜"}}</el-tag>
+					    </template>
+					</el-table-column>
+					<el-table-column
+					  prop="status"
+					  label="状态"
+					  width="120">
+					  <template slot-scope="scope">
+					  		{{scope.row.status == 1 ? "供货正常" : "紧急避险"}}
+					  </template>
+					</el-table-column>
+					
+				    <el-table-column label="操作">
+				      <template slot-scope="scope">
+				        <el-button
+				          size="mini"
+				          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+				        <el-button
+				          size="mini"
+				          type="danger"
+				          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+				      </template>
+				    </el-table-column>
+				  </el-table>
+				  <el-pagination
+				      @size-change="handleSizeChange"
+				      @current-change="handleCurrentChange"
+				      :current-page="currentPageGoods"
+				      :page-sizes="[10, 20, 30]"
+				      :page-size="100"
+				      layout="total, sizes, prev, pager, next, jumper"
+				      :total="goodsInfo.length"
+				      align="center" >
+				   </el-pagination>
+				</template>			
+				
+				<template>					
+					<el-dialog title="编辑商品信息" :visible.sync="editDialogFormVisible">
+					  <el-form :model="editGoodsInfo">
+						
+						<el-row>
+							<el-col :span="8">
+								<el-form-item label="名称" :label-width="formLabelWidth">
+								  <el-input v-model="editGoodsInfo.gname" autocomplete="off"></el-input>
+								</el-form-item>
+							</el-col>
+							<el-col :span="8">
+								<el-form-item label="简述" :label-width="formLabelWidth">
+								  <el-input v-model="editGoodsInfo.intro" autocomplete="off"></el-input>
+								</el-form-item>
+							</el-col>
+							<el-col :span="8">
+								<el-form-item label="库存" :label-width="formLabelWidth">
+								  <el-input v-model="editGoodsInfo.balance" autocomplete="off" ></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						
+						<el-row>
+							<el-col :span="8">
+								<el-form-item label="价格" :label-width="formLabelWidth">
+								  <el-input v-model="editGoodsInfo.price" autocomplete="off"></el-input>
+								</el-form-item>
+							</el-col>
+							<el-col :span="8">
+								<el-form-item label="重量" :label-width="formLabelWidth">
+								  <el-input v-model="editGoodsInfo.weight" autocomplete="off"></el-input>
+								</el-form-item>
+							</el-col>
+							<el-col :span="8">
+								<el-form-item label="单位" :label-width="formLabelWidth">
+								  <el-input v-model="editGoodsInfo.unit" autocomplete="off"></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						
+						<el-form-item label="描述" :label-width="formLabelWidth">
+						  <el-input v-model="editGoodsInfo.descr" autocomplete="off" type="textarea"></el-input>
+						</el-form-item>
+						
+						<el-form-item label="图片" :label-width="formLabelWidth" id="editPics">												
+						<el-upload
+						  name="file"
+						  action="productfeign/downloadGoodsFile"
+						  list-type="picture-card"
+						  :auto-upload="true"
+						  :before-upload="handleBeforeUpload"
+       					  :multiple="true"
+                          :file-list="editfileList"
+                          :on-remove="handleRemoveEdit"
+                          :on-success="handleUploadSuccessEdit">
+							  <i slot="default" class="el-icon-plus" id="upload-pics"></i>
+							  <div slot="file" slot-scope="{file}">
+							    <img
+							      class="el-upload-list__item-thumbnail"
+							      :src="file.url" alt=""
+							    >
+							    <span class="el-upload-list__item-actions">
+							      <span
+							        class="el-upload-list__item-preview"
+							        @click="handlePictureCardPreview(file)"
+							      >
+							        <i class="el-icon-zoom-in"></i>
+							      </span>
+							      <span
+							        v-if="!disabled"
+							        class="el-upload-list__item-delete"
+							        @click="handleDownload(file)"
+							      >
+							        <i class="el-icon-download"></i>
+							      </span>
+							      <span
+							        v-if="!disabled"
+							        class="el-upload-list__item-delete"
+							        @click="handleRemoveEdit(file)"
+							      >
+							        <i class="el-icon-delete"></i>
+							      </span>
+							    </span>
+							  </div>
+						</el-upload>
+						<el-dialog :visible.sync="dialogVisible">
+						  <img width="100%" :src="dialogImageUrl" alt="">
+						</el-dialog>
+						</el-form-item>
+						
+						<el-col :span="12">
+						
+							<el-form-item label="更改状态" :label-width="formLabelWidth">
+								<template v-if="editGoodsInfo.status == 1">
+								  <el-radio disabled v-model="editGoodsInfo.status" label="1">正常供货</el-radio>
+								  <el-radio  v-model="editGoodsInfo.status" label="2">紧急避险</el-radio>
+								</template>
+								<template v-if="editGoodsInfo.status == 2">
+								  <el-radio  v-model="editGoodsInfo.status" label="1">正常供货</el-radio>
+								  <el-radio disabled v-model="editGoodsInfo.status" label="2">紧急避险</el-radio>
+								</template>
+							</el-form-item>
+
+						</el-col>
+						
+						<el-col :span="12">
+						
+						<el-form-item label="更改类型" :label-width="formLabelWidth">
+							<template v-if="editGoodsInfo.tno == 1">
+							  <el-radio disabled v-model="editGoodsInfo.tno" label="1">水果</el-radio>
+							  <el-radio  v-model="editGoodsInfo.tno" label="2">蔬菜</el-radio>
+							</template>
+							<template v-if="editGoodsInfo.tno == 2">
+							  <el-radio  v-model="editGoodsInfo.tno" label="1">水果</el-radio>
+							  <el-radio disabled v-model="editGoodsInfo.tno" label="2">蔬菜</el-radio>
+							</template>
+						</el-form-item>
+						
+						</el-col>
+					  </el-form>
+
+					  <div slot="footer" class="dialog-footer">
+					    <el-button @click="editDialogFormVisible = false">取 消</el-button>
+					    <el-button type="primary" @click="editGoodsInfoByManager()">确 定</el-button>
+					  </div>
+					</el-dialog>
+				</template>
+				
+				<template>
+					<el-dialog title="添加商品信息" :visible.sync="addDialogFormVisible">
+					  <el-form :model="addGoodsInfo">
+						
+						<el-row>
+							<el-col :span="8">
+								<el-form-item label="名称" :label-width="formLabelWidth">
+								  <el-input v-model="addGoodsInfo.gname" autocomplete="off" id="addGname"></el-input>
+								</el-form-item>
+							</el-col>
+							<el-col :span="8">
+								<el-form-item label="简述" :label-width="formLabelWidth">
+								  <el-input v-model="addGoodsInfo.intro" autocomplete="off"></el-input>
+								</el-form-item>
+							</el-col>
+							<el-col :span="8">
+								<el-form-item label="库存" :label-width="formLabelWidth">
+								  <el-input v-model="addGoodsInfo.balance" autocomplete="off"></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						
+						<el-row>
+							<el-col :span="8">
+								<el-form-item label="价格" :label-width="formLabelWidth">
+								  <el-input v-model="addGoodsInfo.price" autocomplete="off"></el-input>
+								</el-form-item>
+							</el-col>
+							<el-col :span="8">
+								<el-form-item label="重量" :label-width="formLabelWidth">
+								  <el-input v-model="addGoodsInfo.weight" autocomplete="off"></el-input>
+								</el-form-item>
+							</el-col>
+							<el-col :span="8">
+								<el-form-item label="单位" :label-width="formLabelWidth">
+								  <el-input v-model="addGoodsInfo.unit" autocomplete="off"></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						
+						<el-form-item label="描述" :label-width="formLabelWidth">
+						  <el-input v-model="addGoodsInfo.descr" autocomplete="off" type="textarea" ></el-input>
+						</el-form-item>
+						
+						<el-form-item label="图片" :label-width="formLabelWidth" id="addPics">												
+						<el-upload
+						  name="file"
+						  action="productfeign/downloadGoodsFile"
+						  list-type="picture-card"
+						  :auto-upload="true"
+						  :before-upload="handleBeforeUpload"
+       					  :multiple="true"
+                          :file-list="addfileList"
+                          :on-remove="handleRemove"
+                          :on-success="handleUploadSuccess">
+							  <i slot="default" class="el-icon-plus" id="upload-pics"></i>
+							  <div slot="file" slot-scope="{file}">
+							    <img
+							      class="el-upload-list__item-thumbnail"
+							      :src="file.url" alt="" 
+							    >
+							    <span class="el-upload-list__item-actions" >
+							      <span
+							        class="el-upload-list__item-preview"
+							        @click="handlePictureCardPreview(file)"
+							      >
+							        <i class="el-icon-zoom-in"></i>
+							      </span>
+							      <span
+							        v-if="!disabled"
+							        class="el-upload-list__item-delete"
+							        @click="handleDownload(file)"
+							      >
+							        <i class="el-icon-download"></i>
+							      </span>
+							      <span
+							        v-if="!disabled"
+							        class="el-upload-list__item-delete"
+							        @click="handleRemove(file)"
+							      >
+							        <i class="el-icon-delete"></i>
+							      </span>
+							    </span>
+							  </div>
+						</el-upload>
+						<el-dialog :visible.sync="dialogVisible">
+						  <img width="100%" :src="dialogImageUrl" alt="">
+						</el-dialog>
+						</el-form-item>
+						
+						<el-col :span="12">
+						<el-form-item label="状态" :label-width="formLabelWidth">
+						  <el-select v-model="addGoodsInfo.status" placeholder="请选择供货状态">
+						    <el-option label="正常供货" value="1"></el-option>
+						    <el-option label="紧急避险" value="2"></el-option>
+						  </el-select>
+						</el-form-item>
+						</el-col>
+						
+						<el-col :span="12">
+					    <el-form-item label="活动区域" :label-width="formLabelWidth">
+					      <el-select v-model="addGoodsInfo.tno" placeholder="请选择活动区域">
+					        <el-option label="水果" value="1"></el-option>
+					        <el-option label="蔬菜" value="2"></el-option>
+					      </el-select>
+					    </el-form-item>
+						</el-col>
+					  </el-form>
+				
+					  <div slot="footer" class="dialog-footer">
+					    <el-button @click="addDialogFormVisible = false">取 消</el-button>
+					    <el-button type="primary" @click="addGoodsInfoByManager()">确 定</el-button>
+					  </div>
+					</el-dialog>
+				</template>
+
+						
+			</div>  
+			
+			<div id="manage-type">
+				
+				
+				<template>
+					
+					<el-row>
+					  <el-button type="success" icon="el-icon-plus" @click="addTypeDialogFormVisible = true">添加</el-button>
+					</el-row>
+					
+					
+				  <el-table
+				    :data="goodsTypeInfo.filter(data => !searchInput || data.tname.toLowerCase().includes(searchInput.toLowerCase()))"
+				    style="width: 100%">
+				    <el-table-column
+				      label="分类编号"
+				      prop="tno">
+				    </el-table-column>
+				    <el-table-column
+				      label="分类名称"
+				      prop="tname">
+				    </el-table-column>
+				    <el-table-column
+				      align="right">
+				      <template slot="header" slot-scope="scope">
+				        <el-input
+				          v-model="searchInput"
+				          size="mini"
+				          placeholder="输入关键字搜索"/>
+				      </template>
+				      <template slot-scope="scope">
+				        <el-button
+				          size="mini"
+				          @click="handleEditType(scope.$index, scope.row)">Edit</el-button>
+				        <el-button
+				          size="mini"
+				          type="danger"
+				          @click="handleDeleteType(scope.$index, scope.row)">Delete</el-button>
+				      </template>
+				    </el-table-column>
+				  </el-table>
+				</template>
+		
+				<template>
+					<el-dialog title="添加类别信息" :visible.sync="addTypeDialogFormVisible">
+					  <el-form :model="addGoodsTypeInfo">
+							<el-form-item label="名称" :label-width="formLabelWidth">
+							  <el-input v-model="addGoodsTypeInfo.tname" autocomplete="off" placeholder="请输入分类名"></el-input>
+							</el-form-item>
+					  </el-form>
+				
+					  <div slot="footer" class="dialog-footer">
+					    <el-button @click="addTypeDialogFormVisible = false">取 消</el-button>
+					    <el-button type="primary" @click="addGoodsTypeInfoByManager()">确 定</el-button>
+					  </div>
+					</el-dialog>
+				</template>
+				
+				<template>
+					<el-dialog title="编辑类别信息" :visible.sync="editTypeDialogFormVisible">
+					  <el-form :model="editGoodsTypeInfo">
+							<el-form-item label="名称" :label-width="formLabelWidth">
+							  <el-input v-model="editGoodsTypeInfo.tname" autocomplete="off" placeholder="请输入分类名"></el-input>
+							</el-form-item>
+					  </el-form>
+				
+					  <div slot="footer" class="dialog-footer">
+					    <el-button @click="editTypeDialogFormVisible = false">取 消</el-button>
+					    <el-button type="primary" @click="editGoodsTypeInfoByManager()">确 定</el-button>
+					  </div>
+					</el-dialog>
+				</template>
+			</div>
+			  
+			<div id="manage-user">
+				<template>
+					
+					<el-row>
+					  <el-button type="success" icon="el-icon-plus" @click="addUserDialogFormVisible = true">添加</el-button>
+					  <el-input placeholder="请输入搜索内容" v-model="searchInput" class="input-with-select" style="width: 800px;margin-left: 700px;"></el-input>
+					</el-row>
+					
+					
+				  <el-table
+				    ref="filterTable"
+				    :data="userInfo.filter(data => !searchInput || data.email.toLowerCase().includes(searchInput.toLowerCase()))"
+				    style="width: 100%">
+					<el-table-column
+					    type="index"
+					    :index="indexMethod"
+						width="100">
+					</el-table-column>
+				    <el-table-column
+				      prop="email"
+				      label="账号"
+				      width="240">
+				    </el-table-column>
+				    <el-table-column
+				      prop="status"
+				      label="权限"
+					  >
+					  <template slot-scope="scope">
+						<div  @click="setAdmin(scope.row)">
+							<el-switch
+								v-model="scope.row.status === 2 "
+								active-color="#13ce66"
+								inactive-color="#ff4949"
+								active-text="开启权限"
+								inactive-text="关闭权限"
+							>
+							</el-switch>
+						</div>
+					  </template>
+					  
+				    </el-table-column>
+					
+					<el-table-column label="操作">
+					<template slot-scope="scope">
+					  <el-button
+					    size="mini"
+					    @click="handleEditUser(scope.$index, scope.row)">Edit</el-button>
+					  <el-button
+					    size="mini"
+					    type="danger"
+					    @click="handleDeleteUser(scope.$index, scope.row)">Delete</el-button>
+					</template>
+					</el-table-column>
+					
+				     <el-table-column
+				        prop="status"
+				        label="标签"
+				        width="100"
+				        :filters="[{ text: '用户', value: 1 }, { text: '管理员', value: 2 }]"
+				        :filter-method="filterTagUser"
+				        filter-placement="bottom-end">
+				        <template slot-scope="scope">
+				        <el-tag
+				            :type="scope.row.status === '1' ? 'primary' : 'success'"
+				            disable-transitions>{{scope.row.status == 1 ? "用户" : "管理员"}}</el-tag>
+				        </template>
+				    </el-table-column>
+				  </el-table>
+				</template>
+				
+				
+				<template>
+					<el-dialog title="添加用户信息" :visible.sync="addUserDialogFormVisible">
+					  <el-form :model="addUserInfo">
+							<el-form-item label="邮箱" :label-width="formLabelWidth" >
+							  <el-input v-model="addUserInfo.email" autocomplete="off" placeholder="请输入邮箱"></el-input>
+							</el-form-item>
+							<el-form-item label="密码" :label-width="formLabelWidth">
+							  <el-input v-model="addUserInfo.pwd" autocomplete="off" placeholder="请输入密码" type="password"></el-input>
+							</el-form-item>
+					  </el-form>
+				
+					  <div slot="footer" class="dialog-footer">
+					    <el-button @click="addUserDialogFormVisible = false">取 消</el-button>
+					    <el-button type="primary" @click="addUserInfoByManager()">确 定</el-button>
+					  </div>
+					</el-dialog>
+				</template>
+				
+				<template>
+					<el-dialog title="编辑用户信息" :visible.sync="editUserDialogFormVisible">
+					  <el-form :model="editUserInfo">
+							<el-form-item label="邮箱" :label-width="formLabelWidth">
+							  <el-input v-model="editUserInfo.email" autocomplete="off" placeholder="请输入邮箱"></el-input>
+							</el-form-item>
+							<el-form-item label="密码" :label-width="formLabelWidth">
+							  <el-input v-model="editUserInfo.pwd" autocomplete="off" placeholder="请输入密码" type="password" readOnly></el-input>
+							</el-form-item>
+					  </el-form>
+				
+					  <div slot="footer" class="dialog-footer">
+					    <el-button @click="editUserDialogFormVisible = false">取 消</el-button>
+					    <el-button type="primary" @click="editUserInfoByManager()">确 定</el-button>
+					  </div>
+					</el-dialog>
+				</template>
+				
+			</div>					  
+		  
+			<div id="manage-order">
+				
+				<template>
+					
+					
+					<el-row>
+						<el-button type="success" icon="el-icon-truck" @click="batchUpOrderStatus()">批量发货</el-button>
+						<el-input placeholder="请输入客户名" v-model="searchInput" class="input-with-select" style="width: 800px;margin-left: 700px;"></el-input>
+					</el-row>
+					
+				  <el-table
+					:data="orderInfo.filter(data => !searchInput || data.email.toLowerCase().includes(searchInput.toLowerCase()))"
+					border
+					style="width: 100%"	
+					ref="multipleTable"
+					tooltip-effect="dark"
+					@selection-change="handleSelectionChange">
+					<el-table-column
+					  type="selection"
+					  width="55">
+					</el-table-column>
+					<el-table-column
+					  prop="ono"
+					  label="订单号"
+					  width="120">
+					</el-table-column>
+					<el-table-column
+					  prop="odate"
+					  label="日期"
+					  sortable
+					  width="180">
+					</el-table-column>
+					<el-table-column
+					  prop="email"
+					  label="客户"
+					  width="180">
+					</el-table-column>
+					<el-table-column
+					  prop="province"
+					  label="省份"
+					  width="120">
+					</el-table-column>
+					<el-table-column
+					  prop="city"
+					  label="市区"
+					  width="120">
+					</el-table-column>
+					<el-table-column
+					  prop="area"
+					  label="县区"
+					  width="120">
+					</el-table-column>
+					<el-table-column
+					  prop="addr"
+					  label="地址"
+					  width="200">
+					</el-table-column>
+					<el-table-column
+					  prop="total"
+					  label="总计"
+					  width="120">
+					</el-table-column>
+					<el-table-column
+					  prop="remark"
+					  label="备注"
+					  width="120">
+					</el-table-column>
+					<el-table-column
+					  prop="status"
+					  label="状态"
+					  width="400">
+					  <template slot-scope="scope">
+						  <el-steps :active="scope.row.status" finish-status="success" simple style="margin-top: 20px">
+							<el-step title="待发货" ></el-step>
+							<el-step title="已发货" ></el-step>
+							<el-step title="已收货" ></el-step>
+						  </el-steps>
+					  </template>
+					</el-table-column>
+					<el-table-column
+					  fixed="right"
+					  label="操作"
+					  width="120">
+					  <template slot-scope="scope">
+						  <el-popover
+						    placement="right"
+						    width="400"
+						    trigger="click">
+						    <el-table :data="orderItemInfo.filter(data => data.ono == scope.row.ono)">
+						      <el-table-column width="100" property="gname" label="商品名"></el-table-column>
+						      <el-table-column width="100" property="nums" label="数量"></el-table-column>
+						      <el-table-column width="100" property="price" label="价格"></el-table-column>
+						    </el-table>
+						    <el-button slot="reference" @click="handleShowOrder(scope.row)" type="text" size="small">查看</el-button>
+						  </el-popover>
+						<el-button type="text" size="small"  @click="handleEditOrder(scope.row)">编辑</el-button>
+						<el-button type="text" size="small"  @click="delOrderInfo(scope.row)">删除</el-button>
+					  </template>
+					</el-table-column>
+				  </el-table>
+				</template>
+									
+				<template>
+					<el-dialog title="更新物流" :visible.sync="editOrderDialogFormVisible">
+						
+					  <el-form :model="editOrderInfo">
+						  <el-form-item label="物流状态" :label-width="formLabelWidth">
+							<el-steps :active="editOrderInfo.status" finish-status="success" simple style="margin-top: 20px">
+									<el-step title="待发货" ></el-step>
+									<el-step title="已发货" ></el-step>
+									<el-step title="已收货" ></el-step>
+							</el-steps>
+							</el-form-item>
+							<el-form-item label="更改状态" :label-width="formLabelWidth">
+							
+							<template v-if="editOrderInfo.status == 1">
+							  <el-radio disabled v-model="editOrderInfo.status" label="1">待发货</el-radio>
+							  <el-radio  v-model="editOrderInfo.status" label="2">已发货</el-radio>
+							  <el-radio  v-model="editOrderInfo.status" label="3">已收货</el-radio>
+							</template>
+							<template v-if="editOrderInfo.status == 2">
+							  <el-radio  v-model="editOrderInfo.status" label="1">待发货</el-radio>
+							  <el-radio disabled v-model="editOrderInfo.status" label="2">已发货</el-radio>
+							  <el-radio  v-model="editOrderInfo.status" label="3">已收货</el-radio>
+							</template>
+							<template v-if="editOrderInfo.status == 3">
+							  <el-radio  v-model="editOrderInfo.status" label="1">待发货</el-radio>
+							  <el-radio  v-model="editOrderInfo.status" label="2">已发货</el-radio>
+							  <el-radio disabled v-model="editOrderInfo.status" label="3">已收货</el-radio>
+							</template>
+
+							</el-form-item>
+					  </el-form>
+									
+					  <div slot="footer" class="dialog-footer">
+					    <el-button @click="editOrderDialogFormVisible = false">取 消</el-button>
+					    <el-button type="primary" @click="editOrderInfoByManager()">确 定</el-button>
+					  </div>
+					</el-dialog>
+				</template>					
+				
+			</div>	  
+		  </el-main>
+	    </el-container>
+	  </el-container>
+	  
+  </div>
+  
+</body>
+
+  <script src="js/vue.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+  <script>
+    new Vue({
+		el: '#manage',
+		data:{
+			email:'Click Login',
+			currentUserInfo:{},
+			userInfo:[],
+			addUserInfo:{},
+			editUserInfo:{},
+			goodsInfo:[],
+			addGoodsInfo:{},
+			editGoodsInfo:{},
+			picsGoodsInfo:[],
+			currentPageGoodsInfo:[],
+			goodsTypeInfo:[],
+			addGoodsTypeInfo:{},
+			editGoodsTypeInfo:{},
+			orderInfo: [],
+			orderItemInfo: [],
+			editOrderInfo:{},
+			showOrderInfo:{},
+			
+			
+			pics:'',
+			type:[], 
+			addfileList:[],
+			editfileList:[],
+			searchInput:'',
+			currentPage:'user',
+			batchUpOrderFlag:true,
+			currentPageGoods:1,
+			currentPageSizeGoods:10,			
+			
+			
+			dialogImageUrl: '',
+			dialogVisible: false,
+			disabled: false,
+			formLabelWidth:'120px',	
+			multipleSelection: [],		
+					
+			editDialogFormVisible:false,
+			addDialogFormVisible:false,
+			addTypeDialogFormVisible:false,
+			editTypeDialogFormVisible:false,
+			addUserDialogFormVisible:false,
+			editUserDialogFormVisible:false,
+			addOrderDialogFormVisible:false,
+			editOrderDialogFormVisible:false,
+			
+		},
+		
+		created(){
+			this.hideDiv();
+			this.checkLogin();
+			this.getUserAll();
+			this.getTypeAll();
+			this.getOrderAll();
+			this.getGoodsInfoAll();
+		},
+		methods: {
+			
+			checkLogin(){
+				$.get("user/check",null,(data)=>{
+					if(data.code == 200){
+						this.email = data.data.email;
+						this.currentUserInfo = data.data;
+					}else{
+						location.href = "./login.html#请先登录";
+					}
+				})
+			},
+			
+			getUserAll(){
+				$.post("user/findUserInfo",null,(data)=>{
+					if(data.code == 200){
+						this.userInfo = data.data;
+					}else{
+						this.userInfo = "";
+						this.showErrorMessage("获取用户信息失败")
+					}
+				})
+			},
+			
+			getGoodsInfoAll(){
+				$.post("productfeign/findGoodsInfoAll",null,(data)=>{
+					if(data.code == 200){
+						this.goodsInfo = data.data;
+	    				for(let i = 0; i < this.goodsInfo.length; i ++){
+	    					this.picsGoodsInfo[i] = this.goodsInfo[i].pics;
+	    					this.goodsInfo[i].pics = this.goodsInfo[i].pics.split(",")[0] + '.jpg';
+	    					this.goodsInfo[i].balance = 9999;
+	    					
+	    				}
+	    				this.getCurrentPageGoods(this.currentPageGoods,this.currentPageSizeGoods);
+					}else{
+						this.goodsInfo = "";
+						this.showErrorMessage("获取商品信息失败")
+					}
+					
+					
+				})
+			},
+			
+			
+			getTypeAll(){
+				$.post("productfeign/findTypeAll",null,(data)=>{
+					if(data.code == 200){
+						this.goodsTypeInfo = data.data;
+						for(let i = 0; i < this.goodsTypeInfo.length; i ++){
+							let type = {};
+							type["text"] = this.goodsTypeInfo[i].tname;
+							type["value"] = this.goodsTypeInfo[i].tno;
+							this.type[i] = type;
+						}
+					}else{
+						this.goodsTypeInfo = "";
+						this.showErrorMessage("获取分类信息失败")
+					}
+				})
+			},
+			
+			getOrderAll(){
+				$.post("orderfeign/findOrderAll",null,(data)=>{
+					if(data.code == 200){
+						this.orderInfo = data.data;
+						this.orderItemInfo = data.extendData;
+					}else{
+						this.orderInfo = "";
+						this.orderItemInfo = "";
+						this.showErrorMessage("获取分类信息失败")
+					}
+				})
+			},
+
+			showMessage(message) {
+		        this.$message({
+		          showClose: true,
+		          message: message
+		        });
+		      },
+
+		    showSuccessMessage(message) {
+		        this.$message({
+		          showClose: true,
+		          message: message,
+		          type: 'success'
+		        });
+		      },
+
+		    showWarningMessage(message) {
+		        this.$message({
+		          showClose: true,
+		          message: message,
+		          type: 'warning'
+		        });
+		      },
+
+		    showErrorMessage(message) {
+		        this.$message({
+		          showClose: true,
+		          message: message,
+		          type: 'error'
+		        });
+		    },
+			filterTagType(value, row) {
+				return row.tno === value;
+			},
+			filterTagUser(value, row) {
+				return row.status === value;
+			},
+			handleEdit(index, row) {
+				let temp = "";
+				this.editDialogFormVisible = true;	
+				this.editGoodsInfo = row;
+				for(let i = 0; i < this.picsGoodsInfo.length; i ++){
+					
+					if(this.editGoodsInfo.gno == i + 1){
+						temp = this.picsGoodsInfo[i];
+					}
+				}
+				
+			    var pics = temp.split(",");
+			    for(let i = 0; i < pics.length; i ++){
+			    	let temp = {};
+			    	temp.url = "http://ps2021uzaehxeq:7700/user/" +pics[i] + ".jpg";
+			    	temp.response = "E:/product-chary/shopping-user-server/user-view/src/main/resources/static/" +pics[i] + ".jpg";
+			    	this.editfileList[i] = temp;
+			    }
+			},
+			handleDelete(index, row) {
+				$.post("productfeign/delGoodsInfo",{
+					gno:row.gno
+				},(data)=>{
+					if(data.code == 200){
+						this.getGoodsInfoAll();
+						this.showSuccessMessage("删除商品信息成功")
+					}else{
+						this.showErrorMessage("删除商品信息失败")
+					}
+				})
+			},
+			
+			handleEditType(index, row) {
+				this.editTypeDialogFormVisible = true;	
+				this.editGoodsTypeInfo = row;
+			},
+			handleDeleteType(index, row) {
+				$.post("productfeign/delGoodsType",{
+					tno:row.tno,
+				},(data)=>{
+					if(data.code == 200){
+						this.getTypeAll();
+						this.showSuccessMessage("删除分类信息成功")
+					}else{
+						this.showErrorMessage("删除分类信息失败")
+					}
+				})
+
+			},
+			handleEditUser(index, row) {
+				this.editUserDialogFormVisible = true;
+				this.editUserInfo = row;
+			},
+			handleDeleteUser(index, row) {
+				$.post("user/delUserByUno",{
+					uno:row.uno
+				},(data)=>{
+					if(data.code == 200){
+						this.getUserAll();
+						this.showSuccessMessage("删除成功")
+					}else if(data.code == 500){
+						this.showErrorMessage("删除失败")
+					}
+				})
+				
+			},
+			handleShowOrder(row) {
+			    console.log(row);
+			},
+			handleEditOrder(row) {
+				this.editOrderDialogFormVisible = true;
+				this.editOrderInfo = row;
+			},
+			indexMethod(index) {
+			    return index + 1;
+			},
+			handleRemove(file) {
+				var pic = "";
+				var linodes =[]; //li节点数组
+				var li_node = $("#addPics ul li");
+				for(var i = 0; i < li_node.length; i ++){
+					pic = li_node[i].getElementsByTagName('img')[0].src;
+					if(pic == file.url){
+						$("#addPics ul li").eq(i).remove();
+						this.addfileList.splice(i,1);
+					}
+				}
+				
+			},
+			handleUploadSuccess(response, file, fileList){
+				this.addfileList = fileList
+			},
+			handleRemoveEdit(file) {
+				console.log("file" + file.url)
+				var pic = "";
+				var linodes =[]; //li节点数组
+				var li_node = $("#editPics ul li");
+				for(var i = 0; i < li_node.length; i ++){
+					pic = li_node[i].getElementsByTagName('img')[0].src;
+					console.log("pic" + pic)
+					if(pic == file.url){
+						$("#addPics ul li").eq(i).remove();
+						this.editfileList.splice(i,1);
+					}
+				}
+			},
+			handleUploadSuccessEdit(response, file, fileList){
+				this.editfileList = fileList
+				console.log(this.editfileList)
+			},
+			
+			
+			handlePictureCardPreview(file) {
+			    this.dialogImageUrl = file.url;
+			    this.dialogVisible = true;
+			},
+			handleDownload(file) {
+			    console.log(file);
+			},
+			toggleSelection(rows) {
+				if (rows) {
+				  rows.forEach(row => {
+					this.$refs.multipleTable.toggleRowSelection(row);
+				  });
+				} else {
+				  this.$refs.multipleTable.clearSelection();
+				}
+			},
+			handleSelectionChange(val) {
+				this.multipleSelection = val;
+			},
+			handleSizeChange(val) {
+				this.currentPageSizeGoods = val;
+				this.getCurrentPageGoods(this.currentPageGoods,this.currentPageSizeGoods);
+	      	},
+	      	handleCurrentChange(val) {
+	      		this.currentPageGoods = val;
+	      		this.getCurrentPageGoods(this.currentPageGoods,this.currentPageSizeGoods);
+	      	},
+			handleBeforeUpload(file) {
+			  var uploadTypes = ['jpg']
+			  var filetype = file.name.replace(/.+\./, '')
+		      if (uploadTypes.indexOf(filetype.toLowerCase()) === -1) {
+		        this.$message.warning({
+		          message: '请上传后缀名为jpg的附件'
+		        })
+		        return false
+		      }
+
+		      return true
+		    },
+			
+			/**
+			 * 隐藏盒子
+			 */
+			hideDiv(){
+				$("#manage-goods").hide();
+				$("#manage-type").hide();
+				//$("#manage-user").hide();
+				$("#manage-order").hide();
+			
+			},
+			
+			/**
+			 * 显示指定盒子
+			 * @param {Object} currentPage 当前页码
+			 */
+			showPage(currentPage) {
+			   $("#manage-" + this.currentPage).hide();
+			   $("#manage-" + currentPage).show();
+			   this.currentPage = currentPage;
+			   this.searchInput = "";
+			   
+			},
+			
+			
+			/**
+			 * 分页数据
+			 * @param {Object} uno 编号
+			 */
+			getCurrentPageGoods(index,nums){
+				this.currentPageGoodsInfo = [];
+				let j = 0;
+        		for(let i = (index-1) * nums; i < index * nums && i < this.goodsInfo.length; i ++, j ++){
+        			this.currentPageGoodsInfo[j] = this.goodsInfo[i];
+        		}
+			},
+
+			
+			/**
+			 * 设置管理员权限
+			 * @param {Object} uno 编号
+			 */
+			setAdmin(row){
+				$.post("user/upUserStatusByUno",{
+					uno:row.uno,
+					status:3-row.status
+				},(data)=>{
+					if(data.code == 200){
+						this.addUserDialogFormVisible = false;
+						this.getUserAll();
+						if(3-status == 1){
+							this.showSuccessMessage("关闭权限成功")
+						}else{
+							this.showSuccessMessage("开启权限成功")
+						}
+					}else if(data.code == 500){
+						this.showErrorMessage("设置权限失败")
+					}
+				})
+			},
+	
+			addGoodsInfoByManager(){
+				this.pics = "";
+				for(var i = 0; i < this.addfileList.length; i ++){
+					this.pics = this.pics + "images/" +  this.addfileList[i].name.split(".")[0] + ",";
+				}
+				this.addGoodsInfo.pics = this.pics.slice(0,this.pics.length-1);
+				this.addGoodsInfo.qperied = "2022-12-31";
+				let _this = this;
+				$.ajax({url:"productfeign/addGoodsInfo",
+					contentType:"application/json",
+					dataType:"json",
+					type:"post",
+					data:JSON.stringify(this.addGoodsInfo),
+					success(resp){
+						if(resp.code == 200){
+							_this.addDialogFormVisible = false;
+							this.pics="";
+							this.addfileList="";
+						}
+						_this.getGoodsInfoAll();
+				}})
+			},
+			
+			
+			/**
+			 * 编辑商品
+			 */
+			 editGoodsInfoByManager(){
+				console.log( this.editfileList)
+				this.pics = "";
+				for(var i = 0; i < this.editfileList.length; i ++){
+					var pics = this.editfileList[i].response.split("static/")[1];
+					this.pics = this.pics +  pics.split(".")[0] + ",";
+				}
+				this.editGoodsInfo.pics = this.pics.slice(0,this.pics.length-1);
+				this.editGoodsInfo.qperied = "2022-12-31";
+				let _this = this;
+				$.ajax({url:"productfeign/updateGoodsInfo",
+					contentType:"application/json",
+					dataType:"json",
+					type:"post",
+					data:JSON.stringify(this.editGoodsInfo),
+					success(resp){
+						if(resp.code == 200){
+							_this.editDialogFormVisible = false;
+							_this.pics="";
+							//_this.editfileList="";
+						}
+						_this.getGoodsInfoAll();
+				}})
+			},
+
+			addGoodsTypeInfoByManager(){
+				
+				$.post("productfeign/addGoodsType",{
+					tname:this.addGoodsTypeInfo.tname
+				},(data)=>{					
+					if(data.code == 200){
+						this.addTypeDialogFormVisible = false;
+						this.showSuccessMessage("添加分类信息成功")
+						this.getTypeAll();
+					}else{
+						this.showErrorMessage("添加分类信息失败")
+					}
+				})
+
+			},
+			
+			editGoodsTypeInfoByManager(){
+				
+				$.post("productfeign/upGoodsType",{
+					tno:this.editGoodsTypeInfo.tno,
+					tname:this.editGoodsTypeInfo.tname
+				},(data)=>{
+					if(data.code == 200){
+						this.editTypeDialogFormVisible = false;
+						this.showSuccessMessage("编辑分类信息成功")
+						this.getTypeAll();
+					}else{
+						this.showErrorMessage("编辑分类信息失败")
+						this.getTypeAll();
+					}
+				})
+
+			},
+			
+			addUserInfoByManager(){
+				
+				$.post("user/regByManager",{
+					email:this.addUserInfo.email,
+					pwd:this.addUserInfo.pwd
+				},(data)=>{
+					if(data.code == 200){
+						this.getUserAll();
+						this.showSuccessMessage("添加成功")
+						this.addUserDialogFormVisible = false;
+					}else if(data.code == 601){
+						this.showWarningMessage("用户已存在")
+					}else if(data.code == 500){
+						this.showErrorMessage("添加失败")
+					}
+				})
+				
+			},
+			
+			editUserInfoByManager(){
+				
+				$.post("user/upUserEmailByUno",{
+					uno:this.editUserInfo.uno,
+					email:this.editUserInfo.email
+				},(data)=>{
+					if(data.code == 200){
+						this.getUserAll();
+						this.showSuccessMessage("修改成功")
+						this.editUserDialogFormVisible = false;
+					}else if(data.code == 500){
+						this.showErrorMessage("修改失败")
+						this.getUserAll();
+					}
+				})
+								
+			},
+			
+			editOrderInfoByManager(){
+				$.post("orderfeign/upOrderStatus",{
+					ono:this.editOrderInfo.ono,
+					status:this.editOrderInfo.status
+				},(data)=>{
+					if(data.code == 200){
+						this.editOrderDialogFormVisible = false;
+						this.showSuccessMessage("修改订单成功")
+						this.getOrderAll();
+					}else{
+						this.showErrorMessage("修改订单失败")
+						this.getOrderAll();
+					}
+				})
+				
+				
+				this.editOrderDialogFormVisible = false;
+			},
+			batchUpOrderStatus(){
+				let upErrorOrder = [];
+				if(this.multipleSelection.length > 0 ){
+					for(let i = j = 0; i < this.multipleSelection.length; i ++){
+						if(this.multipleSelection[i].status == 1){
+							$.post("orderfeign/batchUpOrderStatus",{
+								ono:this.multipleSelection[i].ono
+							},(data)=>{
+								if(data.code == 200){
+									this.getOrderAll();
+								}else{
+									upErrorOrder[j++] = this.multipleSelection[i]
+									this.batchUpOrderFlag = false;
+								}
+							})
+						}
+					}
+					
+					if(this.batchUpOrderFlag == false){
+						this.showErrorMessage("批量修改订单失败")
+						console.log("修改失败的订单信息" + upErrorOrder)
+					}else{
+						this.showSuccessMessage("批量修改订单成功")
+					}
+					this.multipleSelection = "";
+				}else{
+					this.showMessage("请选择需要发货的订单")
+				}
+				
+			},
+			delOrderInfo(row){
+				
+				var ret = window.confirm("此操作将永久删除, 是否继续?");
+				if(ret){
+					$.post("orderfeign/delOrderByOno",{
+						ono:row.ono
+					},(data)=>{
+						if(data.code == 200){
+							this.showSuccessMessage("删除成功")
+							this.getOrderAll();
+						}else{
+							this.showErrorMessage("删除失败")
+						}
+					})
+				}else{
+					this.showMessage("取消删除")
+				}	
+				
+			}
+			
+			
+		}
+    })
+  </script>
+</html>

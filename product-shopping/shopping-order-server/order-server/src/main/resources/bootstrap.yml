@@ -1,0 +1,31 @@
+spring:
+   profiles:
+      active:  dev-7777
+      
+---
+
+# 配置服务器端口
+server:
+   port: 7777
+  
+spring:
+   profiles: dev-7777
+   application:
+      name: order-server
+   
+   cloud:
+      config:
+         label: master   
+         name: order #{name}-{profile}.yml
+         profile: dev
+         discovery:
+            enabled: true
+            service-id: config-server  
+    
+eureka:
+   client:
+      service-url:
+         defaultZone: http://127.0.0.1:5555/eureka    
+      
+
+# java -jar snacknet.jar --spring.profiles.active=dev-7788

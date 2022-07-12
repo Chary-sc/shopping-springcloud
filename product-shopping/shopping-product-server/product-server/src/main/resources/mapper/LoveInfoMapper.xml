@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chary.shopping.mapper.ILoveInfoMapper">
+	
+	<select id="findLoveByUno" parameterType="LoveInfo" resultType="LoveInfo">
+		select * from loveinfo where uno = #{uno}
+	</select>
+	
+	<select id="findLove" parameterType="LoveInfo" resultType="LoveInfo">
+		select * from loveinfo where uno = #{uno} and gno = #{gno}
+	</select>
+	
+	<select id="findLoveInfo" parameterType="int" resultType="map">
+		select lno,uno,loveinfo.gno,num,loveinfo.price,gname,intro,balance,pics,weight,descr from goodsinfo,loveinfo where loveinfo.gno = goodsinfo.gno and uno = #{uno}
+	</select>
+	
+	<insert id="addLoveFirst" parameterType="LoveInfo"> 
+		insert into loveinfo values(0,#{uno},#{gno},#{num},#{price})
+	</insert>
+	
+	<delete id="deleteLoveByGno" parameterType="LoveInfo">
+		delete from loveinfo where uno = #{uno} and gno = #{gno}
+	</delete>
+
+</mapper>

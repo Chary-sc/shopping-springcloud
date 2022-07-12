@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ogani | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="order">
+
+<!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="header__top__left">
+                            <ul>
+	                          	<li><i class="fa fa-envelope"></i> 1902464856@qq.com</li>
+	                           	<li>Free Shipping for all Order of $9.9</li>
+	                        </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="header__top__right">
+                            <div class="header__top__right__social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                            </div>
+                            <div class="header__top__right__language">
+                                <img src="img/language.png" alt="">
+                                <div>Chinese</div>
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a href="#">Chinese</a></li>
+                                    <li><a href="#">English</a></li>
+                                </ul>
+                            </div>
+                            <div class="header__top__right__auth">
+                                <a href="../user/login.html"><i class="fa fa-user">{{email}}</i> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="header__menu">
+                        <ul>
+                            <li><a href="../product/index.html">主页</a></li>
+                            <li><a href="../product/shop-grid.html">商品</a></li>
+                            <li><a href="../product/shoping-cart.html">购物车</a></li>
+                            <li><a href="../product/shoping-Love.html">收藏夹</a></li>
+                            <li class="active"><a href="./shoping-order.html">订单</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__cart">
+                        <ul>
+                            <li><a href="../product/shoping-Love.html"><i class="fa fa-heart"></i> <span id="loveNum">20</span></a></li>
+                            <li><a href="../product/shoping-cart.html"><i class="fa fa-shopping-bag"></i> <span id="cartNum">20</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+     <!-- Hero Section Begin -->
+    <section class="hero hero-normal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span>欢迎选购新鲜果蔬</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action="#">
+                                <div class="hero__search__categories">
+                                    Chary-Shopping
+                                </div>
+                                <input type="text" placeholder="你需要点什么?" id="search">
+	                            <button type="button" class="site-btn" @click="searchGood()">搜索</button>
+                            </form>
+                        </div>
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+86 8888888</h5>
+	                            <span>24小时为您服务</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Chary-Shopping</h2>
+                        <div class="breadcrumb__option">
+                            <a href="../product/index.html">Home</a>
+                            <a href="../product/shop-grid.html">Shop</a>
+                            <span>Shopping</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Shoping Cart Section Begin -->
+    <section class="shoping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping__cart__table" v-for="(order,index) in orderInfo">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="shoping__product" id="order_shoping__product">订单编号： {{order.ono}} &nbsp; &nbsp; &nbsp; &nbsp; 提货日期： {{order.odate}}  &nbsp; &nbsp; &nbsp; &nbsp;订单总计：￥ {{order.total.toFixed(2)}}</th>
+                                    <th>单价</th>
+                                    <th>数量</th>
+                                    <th>小计</th>
+                                    <th class=" shoping__cart__item shoping__cart__item__close"><span class="icon_close" @click="deleteOrderByOno(order.ono)"></span> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(orderItem,index) in orderItemInfo" v-if="orderItem.ono == order.ono":key="orderItem.ino">
+                                    <td class="shoping__cart__item">
+                                        <img :src="orderItem.pics" id="cart_img" @click="toShopDetail(orderItem.gno)">
+                                        <h5>{{orderItem.gname}}</h5>
+                                    </td>
+                                    <td class="shoping__cart__price">
+                                       	{{orderItem.price}}
+                                    </td>
+                                    <td class="shoping__cart__quantity">
+                                       	{{orderItem.nums}}
+                                    </td>
+                                    <td class="shoping__cart__total">
+                                       {{(orderItem.price*orderItem.nums).toFixed(2)}}
+                                    </td>
+                                    <td>
+                                       
+                                    </td>
+                                </tr>
+                            </tbody>    
+                        </table>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping__cart__btns">
+                        <a href="./shop-grid.html" class="primary-btn cart-btn">继续购物</a>
+                        <a href="./shoping-order.html" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
+                            	刷新订单</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shoping Cart Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 蟹堡王餐厅</li>
+                            <li>Phone: +86 88888888</li>
+                            <li>Email: 1902464856@qq.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <h6>相关链接</h6>
+                        <ul>
+                            <li><a href="#">关于我们</a></li>
+                            <li><a href="#">关于我们的店铺</a></li>
+                            <li><a href="#">购物保障</a></li>
+                            <li><a href="#">物流信息</a></li>
+                            <li><a href="#">隐私政策</a></li>
+                            <li><a href="#">地图定位</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">我们是谁</a></li>
+                            <li><a href="#">关于服务</a></li>
+                            <li><a href="#">项目工程</a></li>
+                            <li><a href="#">联系我们</a></li>
+                            <li><a href="#">创造</a></li>
+                            <li><a href="#">推荐</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>欢迎光临果蔬商城</h6>
+                        <p>我们竭力给您带来最好的服务</p>
+                        <form action="#">
+                            <input type="text" placeholder="Enter your mail">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                        <div class="footer__widget__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<!-- <script>document.write(new Date().getFullYear());</script> --> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p></div>
+                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+	</div>
+
+</body>
+
+<!-- Js Plugins -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.nice-select.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.slicknav.js"></script>
+<script src="js/mixitup.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/vue.js"></script>
+
+<script>
+const vm = new Vue({
+		el:"#order",
+		data:{
+			email:'Click Login',
+			userInfo:{},
+			cartInfo:[],
+			loveInfo:[],
+			orderInfo:[],
+			orderItemInfo:[]
+		},
+		created(){
+			this.checkLogin();
+			this.getCartAll();
+			this.getLoveAll();
+			this.handlePay();
+		},
+		methods:{
+
+			checkLogin(){
+				$.get("product/check",null,(data)=>{
+					if(data.code == 200){
+						this.email = data.data.email;
+						this.userInfo = data.data;
+					}else{
+						location.href = "../user/login.html#请先登录";
+					}
+				})
+			},
+
+			//获取购物车信息
+        	getCartAll(){
+				
+				$.post("product/findCartInfo",null,(data)=>{
+	    			if( data.code == 200){
+	    				this.cartInfo = data.data;
+						$("#cartNum").html(data.data.length);
+						for(let i = 0; i < this.cartInfo.length; i ++){
+	    					this.cartInfo[i].pics = this.cartInfo[i].pics.split(",")[0] + '.jpg';
+	    				}
+	    			}else{
+	    				$("#cartNum").html(0);	
+	    			}
+				})
+				
+        	},
+        	
+        	//获取收藏夹信息
+        	getLoveAll(){
+        		$.post("product/findLoveByUno",null,(data)=>{
+	    			if( data.code == 200){
+	    				this.loveInfo = data.data;
+						$("#loveNum").html(data.data.length);
+	    			}else{
+	    				$("#loveNum").html(0);
+	    			}
+				})
+        	},
+        	
+        	
+        	getOrderAll(){
+        		$.post("order/findOrderAll",null,(data)=>{
+        			if(data.code == 200){
+        				this.orderInfo = data.data;
+        				this.orderItemInfo = data.extendData;
+        				for(let i = 0; i < this.orderItemInfo.length; i ++){
+        					this.orderItemInfo[i].pics = this.orderItemInfo[i].pics.split(",")[0] + ".jpg";
+        				}
+        			}else{
+        				if(data.code == 600){
+        					this.orderInfo = null;
+            				this.orderItemInfo = null;
+        				}
+        			}
+        		})
+        	},
+        	
+	
+        	//支付跳转到此页面说明支付成功
+        	handlePay(){
+        	
+        		var url = window.location.href.split("?")[1];
+        		if(url == null || url == ""){
+        			var ono = "false";
+        			//查询所有订单信息
+        			this.getOrderAll();
+        			return;
+        		}else{
+        			var ono = url.split("&")[1].split("=")[1];
+        		}
+        		$.post("order/checkPay",{
+        			ono:ono
+        		},(data)=>{
+	    			if( data.code == 200){
+	    				$.post("order/addOrderItem",null,(data)=>{
+	    	    			if( data.code == 200){
+	    	    				//查询所有订单信息
+	    		    			this.getOrderAll();
+	    		    			this.getCartAll();
+	    	    			}
+	    				})
+	    				
+	    			}else{
+	    				//查询所有订单信息
+	    				this.getOrderAll();
+	    			}
+				})
+    	
+        	},
+        	
+        	deleteOrderByOno(ono){
+        		$.post("order/deleteOrderByOno",{
+        			ono:ono
+        		},(data)=>{
+	    			if( data.code == 200){
+	    				//查询所有订单信息
+	    				this.getOrderAll();
+	    			}
+				})
+        	},
+        	
+        	searchGood(){
+        		
+        		var searchText= jQuery.trim($('#search').val());
+        		var searchUrl =encodeURI("../product/shop-grid.html#content="+searchText);   //使用encodeURI编码
+        		window.location.href = searchUrl;
+        	},
+        	
+        	toShopDetail(gno){
+        		location.href="../product/shop-details.html#" + gno;
+        		this.getGoodInfoByGno();
+        	}
+        
+		}
+		
+	})
+
+</script>
+</html>

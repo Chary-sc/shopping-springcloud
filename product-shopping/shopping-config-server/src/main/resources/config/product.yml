@@ -1,0 +1,65 @@
+spring:
+   datasource:
+      driverClassName: com.mysql.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
+      url: jdbc:mysql://127.0.0.1:3306/shopping?userSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useOldAliasMetadataBehavior=true
+      username: root
+      password: a
+      dbName: shopping
+      backupPath: D:/databack
+      
+   # 配置编码集
+   http:
+      encoding: 
+         charset: utf-8
+         force: true
+         enableed: true
+   
+   # 配置邮件发送
+   mail:
+      protocol: smtp
+      username: 1902464856@qq.com
+      password: guhxqtaxyhisddij
+      port: 465
+      host: smtp.qq.com
+      properties:
+         mail:
+            smtp:
+               auth: true
+               ssl: 
+                  enable: true
+                  
+                  
+   # 静态资源路径
+   resources:
+      static-locations: classpath:/META-INF/resources, classpath:/static/,classpath:/public/,classpath:/resouces/,file:${web.upload-path}
+   
+   # session存入redis
+   session:
+      store-type: redis
+
+   redis:
+      database: 0
+      host: 127.0.0.1
+      prot: 6379
+      password:
+      jedis:
+         pool:
+            max-active: 10
+            max-wait: 8000    
+      
+# 文件上传后保存的路径
+web:
+   upload-path: D:/
+   
+# 配置mybatis
+mybatis:
+   mapper-locations: classpath:mapper/*Mapper.xml
+   type-aliases-package: com.chary.shopping.bean,com.chary.shopping.dto
+   
+# 日志配置
+logging:
+   level:
+      com.chary.snacknet.mapper: debug
+   
+# java -jar snacknet.jar --spring.profiles.active=dev-7788

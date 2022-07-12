@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chary.shopping.mapper.ICartInfoMapper">
+	
+	<select id="findCartByUno" parameterType="CartInfo" resultType="CartInfo">
+		select * from cartinfo where uno = #{uno}
+	</select>
+	
+	<select id="findCart" parameterType="CartInfo" resultType="CartInfo">
+		select * from cartinfo where uno = #{uno} and gno = #{gno}
+	</select>
+	
+	<select id="findCartInfo" parameterType="int" resultType="map">
+		select cno,uno,cartinfo.gno,num,cartinfo.price,gname,intro,balance,pics,weight,descr from goodsinfo,cartinfo where cartinfo.gno = goodsinfo.gno and uno = #{uno}
+	</select>
+	
+	<insert id="addCartFirst" parameterType="CartInfo"> 
+		insert into cartinfo values(0,#{uno},#{gno},#{num},#{price})
+	</insert>
+	
+	<delete id="deleteCart">
+		delete from cartinfo where num = 0
+	</delete>
+	
+	<delete id="deleteCartByGno" parameterType="CartInfo">
+		delete from cartinfo where uno = #{uno} and gno = #{gno}
+	</delete>
+	
+	<insert id="addCart" parameterType="CartInfo"> 
+		update cartinfo set num = num + #{num} where uno = #{uno} and gno = #{gno}
+	</insert>
+	
+	<insert id="subCart" parameterType="CartInfo">
+		update cartinfo set num = num - #{num} where uno = #{uno} and gno = #{gno}
+	</insert>
+	
+</mapper>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chary-Shopping</title>
+
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body>
+	
+	<div id="detail">
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="header__top__left">
+                            <ul>
+	                          	<li><i class="fa fa-envelope"></i> 1902464856@qq.com</li>
+	                           	<li>Free Shipping for all Order of $9.9</li>
+	                        </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="header__top__right">
+                            <div class="header__top__right__social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                            </div>
+                            <div class="header__top__right__language">
+                                <img src="img/language.png" alt="">
+                                <div>Chinese</div>
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a href="#">Chinese</a></li>
+                                    <li><a href="#">English</a></li>
+                                </ul>
+                            </div>
+                            <div class="header__top__right__auth">
+                                <a href="../user/login.html"><i class="fa fa-user">{{email}}</i> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="header__menu">
+                        <ul>
+                            <li><a href="./index.html">主页</a></li>
+                            <li><a href="./shop-grid.html">商品</a></li>
+                            <li><a href="./shoping-cart.html">购物车</a></li>
+                            <li><a href="./shoping-Love.html">收藏夹</a></li>
+                            <li><a href="../order/shoping-order.html">订单</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__cart">
+                        <ul>
+                            <li><a href="./shoping-Love.html"><i class="fa fa-heart"></i> <span id="loveNum">20</span></a></li>
+                            <li><a href="./shoping-cart.html"><i class="fa fa-shopping-bag"></i> <span id="cartNum">20</span></a></li>
+	                    </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span>欢迎选购新鲜果蔬</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action="#">
+                                <div class="hero__search__categories">
+                                    Chary-Shopping
+                                </div>
+                                <input type="text" placeholder="你需要点什么?" id="search">
+	                            <button type="button" class="site-btn" @click="searchGood()">搜索</button>
+                            </form>
+                        </div>
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+86 8888888</h5>
+	                            <span>24小时为您服务</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Chary-Shopping</h2>
+                        <div class="breadcrumb__option">
+                            <a href="./index.html">Home</a>
+                            <a href="./shop-grid.html">Shop</a>
+                            <span>Shopping</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Product Details Section Begin -->
+    <section class="product-details spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="product__details__pic">
+                        <div class="product__details__pic__item">
+                        
+                        <el-carousel height="555px">
+					      <el-carousel-item v-for="pic in pics" :key="pic">
+					        <img :src="pic">
+					      </el-carousel-item>
+					    </el-carousel>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="product__details__text">
+                        <h3>商品简介</h3>
+                        <div class="product__details__rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-half-o"></i>
+                            <span>商品点评</span>
+                        </div>
+                        <div class="product__details__price">￥{{goodInfo.price}}</div>
+                        <p>{{goodInfo.intro}}</p>
+                        <div class="product__details__quantity">
+                            <div class="quantity">
+                                <div class="num-btn">
+                                	<span @click="changeNumber(619)">-</span>
+                                    <input type="number" value="1" id="number" min="1" max="100">
+                                    <span @click="changeNumber(514)">+</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="javascript:void(0);" class="primary-btn" @click="addCartByNumber(goodInfo.gno,goodInfo.price)">加入购物车</a>
+                        <a href="javascript:void(0);" class="heart-icon"><span :id="goodInfo.gno" class="fa fa-heart" v-if="isLove(goodInfo.gno)" @click="addLove(goodInfo.gno,goodInfo.price)"></span></a>
+                        <ul>
+                            <li><b>商品库存</b> <span>{{goodInfo.balance}}</span></li>
+                            <li><b>商品产期</b> <span><samp>{{goodInfo.qperied}}</samp></span></li>
+                            <li><b>商品重量</b> <span>{{goodInfo.weight}}{{goodInfo.unit}}</span></li>
+                            <li><b>提货时间</b> <span>{{pickUpTime}}</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="product__details__tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
+                                    aria-selected="true">商品描述</a>
+                            </li>
+                          
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                <div class="product__details__tab__desc">
+                                    <p>{{goodInfo.descr}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Details Section End -->
+
+    <!-- Related Product Section Begin -->
+    <section class="related-product">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title related__product__title">
+                        <h2>相关产品</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6"  v-for="(goods,index) in relatedGoodsInfo" :key="goods.gno">
+                     <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                        	<img :src="goods.pics" @click="toShopDetail(goods.gno)"/>
+                            <ul class="product__item__pic__hover">
+                                <li><a href="javascript:void(0);"><i><span :id="goods.gno" class="fa fa-heart" v-if="isLove(goods.gno)" @click="addLove(goods.gno,goods.price)"></span></i></a></li>
+                                <li><a href="javascript:void(0);" @click="addCart(goods.gno,goods.price)"><i class="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                             <h6><a href="javascript:void(0);" @click="toShopDetail(goods.gno)">{{goods.gname}}</a></h6>
+                             <h5>￥{{goods.price}}/ {{goods.weight}}{{goods.unit}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Related Product Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 蟹堡王餐厅</li>
+                            <li>Phone: +86 88888888</li>
+                            <li>Email: 1902464856@qq.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <h6>相关链接</h6>
+                        <ul>
+                            <li><a href="#">关于我们</a></li>
+                            <li><a href="#">关于我们的店铺</a></li>
+                            <li><a href="#">购物保障</a></li>
+                            <li><a href="#">物流信息</a></li>
+                            <li><a href="#">隐私政策</a></li>
+                            <li><a href="#">地图定位</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">我们是谁</a></li>
+                            <li><a href="#">关于服务</a></li>
+                            <li><a href="#">项目工程</a></li>
+                            <li><a href="#">联系我们</a></li>
+                            <li><a href="#">创造</a></li>
+                            <li><a href="#">推荐</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>欢迎光临果蔬商城</h6>
+                        <p>我们竭力给您带来最好的服务</p>
+                        <form action="#">
+                            <input type="text" placeholder="Enter your mail">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                        <div class="footer__widget__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<!-- <script>document.write(new Date().getFullYear());</script> --> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p></div>
+                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+	</div>
+	
+</body>
+
+
+<!-- Js Plugins -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.nice-select.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.slicknav.js"></script>
+<script src="js/mixitup.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/vue.js"></script>
+
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script>
+	const vm = new Vue({
+		el:"#detail",
+		data:{
+			email:'Click Login',
+			pics: ["images/fruit-01.jpg","images/fruit-02.jpg"],
+			pickUpTime:'',
+			userInfo:{},
+			cartInfo:[],
+			loveInfo:[],
+			goodInfo:{},
+			relatedGoodsInfo:[]
+			
+		},
+		created(){
+			this.checkLogin();
+			this.getCartAll();
+			this.getLoveAll();
+			this.getPickUpTime();
+			this.getGoodInfoByGno();
+			this.getRelatedGoodsInfo();
+		},
+		methods:{
+
+			checkLogin(){
+				$.get("product/check",null,(data)=>{
+					if(data.code == 200){
+						this.email = data.data.email;
+						this.userInfo = data.data;
+					}else{
+						location.href = "../user/login.html#请先登录";
+					}
+				})
+			},
+
+			//获取购物车信息
+        	getCartAll(){
+				
+				$.post("cart/findCartAll",null,(data)=>{
+	    			if( data.code == 200){
+	    				this.cartInfo = data.data[0];
+						$("#cartNum").html(data.data.length);
+	    			}else{
+	    				$("#cartNum").html(0);
+	    			}
+				})
+				
+        	},
+        	
+        	//获取收藏夹信息
+        	getLoveAll(){
+        		$.post("love/findLoveByUno",null,(data)=>{
+	    			if( data.code == 200){
+	    				this.loveInfo = data.data;
+						$("#loveNum").html(data.data.length);
+	    			}else{
+	    				$("#loveNum").html(0);
+	    			}
+				})
+        	},
+        	
+        	
+        	//提货时间
+        	getPickUpTime(){
+        		
+        		var date = new Date();
+        		var year = date.getFullYear(); //获取年 
+        		var month = date.getMonth()+1;//获取月  
+        		var day = date.getDate()+1; //获取当日
+        		this.pickUpTime = year + "-" + month + "-" + day + " 12:00";
+
+        	},
+        	
+        	getGoodInfoByGno(){
+        		
+        		var regPos = /^[0-9]+.?[0-9]*/; //判断是否是数字
+        		var gno = window.location.href.split("#")[1];
+        		if(!regPos.test(gno) ){
+        			location.href="./shop-grid.html";
+        	    }
+        		
+        		
+        		$.post("goodsInfo/findGoodInfoByGno",{
+        			gno:gno
+        		},(data)=>{
+	    			if( data.code == 200){
+	    				this.goodInfo = data.data;
+	    				this.getPics();
+	    			}else if( data.code == 600){
+	    				alert("商品已下架");
+	    				location.href="./shop-grid.html";
+	    			}
+				})
+        	},
+
+        	getRelatedGoodsInfo(){
+        		
+        		$.post("goodsInfo/findRelatedGoods",null,(data)=>{
+	    			if( data.code == 200){
+	    				this.relatedGoodsInfo = data.data;
+	    				for(let i = 0; i < this.relatedGoodsInfo.length; i ++){
+	    					this.relatedGoodsInfo[i].pics = this.relatedGoodsInfo[i].pics.split(",")[0] + '.jpg';
+	    				}
+	    			}
+	    			this.getLoveAll();
+				})
+        	},
+        	
+        	getPics(){
+        		this.pics = this.goodInfo.pics.split(",");
+        		for(let i = 0; i < this.pics.length; i ++){
+        			this.pics[i] = this.pics[i] + ".jpg";
+        		}
+        	},
+        	
+        	//想关产品
+        	addCart(gno,price){
+      		
+        		console.log(gno,price);
+        		$.post("cart/addCart",{
+        			gno: gno,
+        			price: price,
+        			num: 1
+        		},(data)=>{
+	    			if( data.code == 200){
+	    				this.getCartAll();
+	    				return alert("添加成功");
+	    			}else {
+	    				alert("网络不佳");
+	    			}
+				})
+
+        	},
+        	
+        	//数字框使用
+        	addCartByNumber(gno,price){
+
+        		let num = $("#number").val();
+        		
+        		//临时处理
+    			if(num >= 100){
+    				return alert("商品库存不足");
+    			}
+        		
+        		$.post("cart/addCart",{
+        			gno: gno,
+        			price: price,
+        			num: num
+        		},(data)=>{
+	    			if( data.code == 200){
+	    				this.getCartAll();
+	    				return alert("添加成功");
+	    			}else {
+	    				alert("网络不佳");
+	    			}
+				})
+
+        	},
+
+        	changeNumber(flag){
+        		
+    			let num = parseInt($("#number").val());
+    			if(num == 1 && flag != 514){
+    				return alert("商品至少添加一件");
+    			}
+    			
+    			//临时处理
+    			if(num >= 100 && flag == 514){
+    				return alert("商品库存不足");
+    			}
+    			
+        		if(flag == 514){
+        			$("#number").val(num + 1);
+        		}else{
+        			$("#number").val(num - 1);
+        		}
+        		
+        		
+        	},
+        	
+        	addLove(gno,price){
+        		
+        		$.post("love/addLoveFirst",{
+        			gno: gno,
+        			price: price,
+        			num: 1
+        		},(data)=>{
+	    			if( data.code == 200){
+	    				this.getLoveAll();
+	    			}else if( data.code == 600){
+	    				alert("请先登录");
+	    				location.href = "../user/login.html#请先登录";
+	    			}else {
+	    				alert("网络不佳");
+	    			}
+				})
+
+        	},
+        	
+        	isLove(gno){
+        		for(let i = 0; i < this.loveInfo.length; i ++){
+        			if(gno == this.loveInfo[i].gno){
+        				$("#" + gno).css('color','red');
+						break;
+        			}else{
+        				$("#" + gno).css('color','black');
+        			}
+        		}
+        		return true;
+        	},
+        	
+        	searchGood(){
+        		
+        		var searchText= jQuery.trim($('#search').val());
+        		var searchUrl =encodeURI("./shop-grid.html#content="+searchText);   //使用encodeURI编码
+        		window.location.href =searchUrl;
+        	},
+        	
+        	toShopDetail(gno){
+        		location.href="./shop-details.html#" + gno;
+        		this.getGoodInfoByGno();
+        		//回到顶部 scrollTo(0,0);
+        		document.body.scrollTop = document.documentElement.scrollTop = 0;
+        		
+        	}
+        
+		}
+		
+	})
+
+</script>
+
+
+</html>

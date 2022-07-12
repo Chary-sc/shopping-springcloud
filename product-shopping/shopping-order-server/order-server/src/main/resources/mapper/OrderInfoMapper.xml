@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chary.shopping.mapper.IOrderInfoMapper">
+
+	<insert id="addOrder" parameterType="OrderInfo" >
+		insert into orderinfo values(#{ono},NOW(),#{ano},#{total},#{uno},#{remark},1)
+	</insert>
+	
+	<insert id="addOrderItem" parameterType="OrderItemInfo" >
+		insert into orderiteminfo values(0,#{ono},#{gno},#{nums},#{price},1)
+	</insert>
+	
+	<delete id="delCartByOrder" parameterType="int" >
+		delete from cartinfo where uno = #{uno} 
+	</delete>
+	
+	<select id="findOrderAll" parameterType="int" resultType="OrderInfo">
+		select * from orderinfo where uno = #{uno} ORDER BY odate DESC
+	</select>
+
+	<select id="findOrderItemByOno" parameterType="String" resultType="map">
+		select * from orderiteminfo,goodsinfo where orderiteminfo.gno = goodsinfo.gno and ono = #{ono}
+	</select>
+
+	<delete id="delOredr" parameterType="String" >
+		delete from orderinfo where ono = #{ono} 
+	</delete>
+	
+	<delete id="delOredrItem" parameterType="String" >
+		delete from orderiteminfo where ono = #{ono} 
+	</delete>
+
+	<insert id="addAddrInfo" parameterType="AddrInfo">
+		insert into addrinfo values(0,#{uno},#{name},#{email},#{province},#{city},#{area},#{addr},#{flag},#{status})
+	</insert>
+
+	<delete id="delAddrInfoByAno" parameterType="int" >
+		delete from addrinfo where ano = #{ano} 
+	</delete>
+	
+	<update id="cancelDefaultAddr" parameterType="int">
+		update addrinfo set flag = 0 where uno = #{uno}
+	</update>
+	
+	<update id="setDefaultAddr" parameterType="int">
+		update addrinfo set flag = 1 where ano = #{ano}
+	</update>
+
+	<select id="findAddrInfoByUno" parameterType="int" resultType="AddrInfo">
+		select * from addrinfo where uno = #{uno}
+	</select>
+	
+	<select id="findOrderAllByManager" resultType="map">
+		select * from (select ono,odate,ano,total,oi.uno,remark,oi.status,email from orderinfo oi,userinfo ui where oi.uno = ui.uno ORDER BY odate DESC) t1  left join addrinfo t2 on t1.ano = t2.ano
+	</select>
+	
+	<update id="upOrderStatus" parameterType="OrderInfo">
+		update orderinfo set status = #{status} where ono = #{ono}
+	</update>
+	
+	<update id="batchUpOrderStatus" parameterType="String">
+		update orderinfo set status = 2 where ono = #{ono}
+	</update>
+
+</mapper>

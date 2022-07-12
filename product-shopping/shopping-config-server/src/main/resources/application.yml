@@ -1,0 +1,20 @@
+# 配置服务器端口
+server:
+   port: 5566
+  
+spring:
+   application:
+      name: config-server
+   profiles: 
+      active: native # 说明是本地配置
+   cloud:
+      config:
+         server:
+           native:
+               search-locations: classpath:/config
+
+eureka:
+   client:
+      service-url:
+         defaultZone: http://127.0.0.1:5555/eureka    
+      

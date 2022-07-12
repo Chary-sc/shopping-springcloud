@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chary-Shopping</title>
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/city-style.css" type="text/css">
+    
+</head>
+
+<body>
+
+    <!-- Page Preloder -->
+    <div id="checkout">
+
+    <!-- Header Section Begin -->
+    <header class="header"  @click="closeDialog()">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="header__top__left">
+                            <ul>
+	                          	<li><i class="fa fa-envelope"></i> 1902464856@qq.com</li>
+	                           	<li>Free Shipping for all Order of $9.9</li>
+	                        </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="header__top__right">
+                            <div class="header__top__right__social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                            </div>
+                            <div class="header__top__right__language">
+                                <img src="img/language.png" alt="">
+                                <div>Chinese</div>
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a href="#">Chinese</a></li>
+                                    <li><a href="#">English</a></li>
+                                </ul>
+                            </div>
+                            <div class="header__top__right__auth">
+                                <a href="../user/login.html"><i class="fa fa-user">{{email}}</i> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="header__menu">
+                        <ul>
+                            <li><a href="../product/index.html">主页</a></li>
+                            <li><a href="../product/shop-grid.html">商品</a></li>
+                            <li><a href="../product/shoping-cart.html">购物车</a></li>
+                            <li><a href="../product/shoping-Love.html">收藏夹</a></li>
+                            <li><a href="./shoping-order.html">订单</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__cart">
+                        <ul>
+                            <li><a href="../product/shoping-Love.html"><i class="fa fa-heart"></i> <span id="loveNum">20</span></a></li>
+                            <li><a href="../product/shoping-cart.html"><i class="fa fa-shopping-bag"></i> <span id="cartNum">20</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal"  @click="closeDialog()">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span>欢迎选购新鲜果蔬</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action="#">
+                                <div class="hero__search__categories">
+                                    Chary-Shopping
+                                </div>
+                                <input type="text" placeholder="你需要点什么?" id="search">
+	                            <button type="button" class="site-btn" @click="searchGood()">搜索</button>
+                            </form>
+                        </div>
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+86 8888888</h5>
+	                            <span>24小时为您服务</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg"  @click="closeDialog()">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Chary-Shopping</h2>
+                        <div class="breadcrumb__option">
+                            <a href="../product/index.html">Home</a>
+                            <a href="../product/shop-grid.html">Shop</a>
+                            <span>Shopping</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                	<h6>
+						 <el-table  :data="addrInfo" style="width: 100%">
+						   <el-table-column
+						     label="姓名"
+						     width="100">
+						     <template slot-scope="scope">
+						       <span>{{ scope.row.name }}</span>
+						     </template>
+						   </el-table-column>
+						     <el-table-column
+						     label="邮箱"
+						     width="170">
+						     <template slot-scope="scope">
+						       <span>{{ scope.row.email }}</span>
+						     </template>
+						   </el-table-column>  
+						   <el-table-column
+						     label="地区"
+						     width="200">
+						     <template slot-scope="scope">
+						       <span style="margin-left: 20px">{{ scope.row.province + '-' +scope.row.city + '-' +scope.row.area}}</span>
+						     </template>
+						   </el-table-column>  
+						   <el-table-column
+						     label="详细地址"
+						     width="200">
+						     <template slot-scope="scope">
+						       <span>{{ scope.row.addr }}</span>
+						     </template>
+						   </el-table-column>  
+						   <el-table-column
+						     label="(操作)默认地址"
+						     width="140">
+						     <template slot-scope="scope">
+						     <el-button @click="setDefaultAddr(scope.row.ano)" id="setDefault"><span>{{ scope.row.flag == 1 ? '√' : ''}}</span></el-button>
+						     </template>
+						   </el-table-column>
+						   <el-table-column
+						     label="(操作)收货地址"
+						     width="140">
+						     <template slot-scope="scope">
+						     <el-button @click="setReceiptAddr(scope.row.ano)" id="setReceipt" ><span>{{ scope.row.ano ==  receiptAddrFlag ?  '√' : ''}}</span></el-button>
+						     </template>
+						   </el-table-column>
+						   <el-table-column
+						     label="(操作)删除地址"
+						     width="140">
+						     <template slot-scope="scope">
+						     <el-button @click="delAddrInfo(scope.row.ano)" id="delAddress"><span>×</span></el-button>
+						     </template>
+						   </el-table-column>
+						 </el-table>
+						 <br />
+						<button @click="centerDialogVisible=true" id="addAddr">添加地址</button></h6> 
+                </div>
+            </div>
+            
+            <el-dialog :visible.sync="centerDialogVisible" id="addr-dailog" >
+				<fieldset>
+			        <legend>请填写您的收货信息</legend>
+			        <label for="addr-name">收件人姓名：
+			            <input type="text" id="addr-name" >
+			        </label>
+			        <label for="addr-show02">收件人地址：
+			            <input type="text" id="addr-show02" readonly="readonly" placeholder="请在下方选择">
+			        </label>
+			        <label for="addr-detailAddr">详 细 地 址：
+			        	<input type="text" id="addr-detailAddr">
+			        </label>
+			        <div id="addr-choice">
+			            <ul id="title-wrap" @cilck="titleWrapMe(this.event)">
+			                <li value="0" id="title-wrap-1">省份</li>
+			                <li value="1" id="title-wrap-2">城市</li>
+			                <li value="2" id="title-wrap-3">县区</li>
+			            </ul>
+			            <div id="show-panel">
+			                <ul id="addr-wrap" @click="getAddrWrap(this.event)">
+			                </ul>
+			            </div>
+			        </div>
+			      <button type="button" class="btn met2" @click="addAddrInfo()" id="btn2">确定</button>
+			   </fieldset>
+			</el-dialog>
+            	
+            <div class="checkout__form" @click="closeDialog()"> 
+                <h4>收货信息</h4>
+                <form onsubmit="return false">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>收件人<span>*</span></p>
+                                        <input type="text" id="name" onfocus="testFocus(id)" onblur="testBlur(id,this)" readOnly="readOnly">
+                                        <span class="placeholder_span"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>收件人邮箱<span>*</span></p>
+                                        <input type="text" :value="userInfo.email" readOnly="readOnly">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout__input">
+                                <p>所在地区<span>*</span></p>
+                                <input type="text" id="area" onfocus="testFocus(id)" onblur="testBlur(id,this)"  readOnly="readOnly">           
+                            </div>
+                            <div class="checkout__input">
+                                <p>详细地址<span>*</span></p>
+                                <input type="text" placeholder="街道地址" class="checkout__input__add" id="street" onfocus="testFocus(id)" onblur="testBlur(id,this)" readOnly="readOnly">
+                                <span class="placeholder_span"></span>
+                            </div>
+                            <div class="checkout__input">
+                                <p>订单备注</p>
+                                <input type="text" id="remark">
+                                <span class="placeholder_span"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="checkout__order">
+                                <h4>订单结算</h4>
+                                <div class="checkout__order__products">商品 <span>小计</span></div>
+                                <ul>
+                                    <li v-for="(goods,index) in cartInfo" :key="goods.cno">{{goods.gname}} <span>￥{{(goods.num*goods.price).toFixed(2)}}</span></li>
+                                </ul>
+                                <div class="checkout__order__subtotal">商品总数<span>{{product_num}}</span></div>
+                                <div class="checkout__order__total">商品总计 <span>￥{{product_total}}</span></div>
+                                <button type="submit" class="site-btn" @click="toPay()">去支付</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="../product/index.html"><img src="img/logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 蟹堡王餐厅</li>
+                            <li>Phone: +86 88888888</li>
+                            <li>Email: 1902464856@qq.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <h6>相关链接</h6>
+                        <ul>
+                            <li><a href="#">关于我们</a></li>
+                            <li><a href="#">关于我们的店铺</a></li>
+                            <li><a href="#">购物保障</a></li>
+                            <li><a href="#">物流信息</a></li>
+                            <li><a href="#">隐私政策</a></li>
+                            <li><a href="#">地图定位</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">我们是谁</a></li>
+                            <li><a href="#">关于服务</a></li>
+                            <li><a href="#">项目工程</a></li>
+                            <li><a href="#">联系我们</a></li>
+                            <li><a href="#">创造</a></li>
+                            <li><a href="#">推荐</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>欢迎光临果蔬商城</h6>
+                        <p>我们竭力给您带来最好的服务</p>
+                        <form action="#">
+                            <input type="text" placeholder="Enter your mail">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                        <div class="footer__widget__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<!-- <script>document.write(new Date().getFullYear());</script> --> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p></div>
+                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+	
+     </div>
+     
+
+
+</body>
+
+<!-- Js Plugins -->
+<script src="js/checkout.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.nice-select.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.slicknav.js"></script>
+<script src="js/mixitup.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/vue.js"></script>
+
+<script src="js/city.js"></script>
+<script src="js/method02.js"></script>
+
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script>
+const vm = new Vue({
+		el:"#checkout",
+		data:{
+			email:'Click Login',
+			userInfo:{},
+			cartInfo:[],
+			loveInfo:[],
+			addrInfo:[],
+			product_num: 0,
+			product_total: 0.0,
+			centerDialogVisible: false,
+			receiptAddrFlag: 0,
+			
+			
+			prov: '',
+		    city: '',
+		    country: '',
+		    provVal: '',
+		    cityVal: '',
+		    countryVal: '',
+		    titleWrap:''
+		  		    
+		    
+		},
+		created(){
+			
+			this.checkLogin();
+			this.getCartAll();
+			this.getLoveAll();
+			this.getAddrAll();
+			this.getAddrDialog();
+
+		},
+		
+		methods:{
+
+			checkLogin(){
+				$.get("product/check",null,(data)=>{
+					if(data.code == 200){
+						this.email = data.data.email;
+						this.userInfo = data.data;
+					}else{
+						location.href = "../user/login.html#请先登录";
+					}
+				})
+			},
+
+			//获取购物车信息
+        	getCartAll(){
+
+				$.post("product/findCartInfo",null,(data)=>{
+	    			if( data.code == 200){
+	    				this.cartInfo = data.data;
+						$("#cartNum").html(data.data.length);
+						for(let i = 0; i < this.cartInfo.length; i ++){
+	    					this.product_num += this.cartInfo[i].num;
+	    					this.product_total += this.cartInfo[i].num * this.cartInfo[i].price;
+	    				}
+	    			}else{
+	    				this.cartInfo = null;
+	    				$("#cartNum").html(0);
+	    			}
+				})
+				
+        	},
+        	
+        	//获取收藏夹信息
+        	getLoveAll(){
+        		$.post("product/findLoveByUno",null,(data)=>{
+	    			if( data.code == 200){
+	    				this.loveInfo = data.data;
+						$("#loveNum").html(data.data.length);
+	    			}else{
+	    				this.loveInfo = null;
+	    				$("#loveNum").html(0);
+	    			}
+				})
+        	},
+        	
+        	getAddrAll(){
+        		$.post("order/findAddrInfoByUno",null,(data)=>{
+	    			if( data.code == 200){
+	    				this.addrInfo = data.data;
+	    				
+	    				var regPos = /^[0-9]+.?[0-9]*/; //判断是否是数字
+	            		this.receiptAddrFlag = window.location.href.split("#")[1];
+	            		if(!regPos.test(this.receiptAddrFlag) || this.receiptAddrFlag == 0){
+	            			for(let i = 0; i < this.addrInfo.length; i ++){
+		    					if(this.addrInfo[i].flag == 1){
+		    						this.receiptAddrFlag = this.addrInfo[i].ano;
+		    					}
+		    				} 
+	            	    }
+	    				
+	    				for(let i = 0; i < this.addrInfo.length; i ++){
+	            			if(this.receiptAddrFlag == this.addrInfo[i].ano){
+	            				$("#name").val(this.addrInfo[i].name)
+	    						$("#area").val(this.addrInfo[i].province+ '-' +this.addrInfo[i].city+ '-' +this.addrInfo[i].area)
+	    						$("#street").val(this.addrInfo[i].area)
+	            			}
+	            		}
+	    			}else{
+	    				this.loveInfo = null;
+	    			}
+				})
+        	},
+        	
+        	toPay(){
+        		
+        		let name = $("#name").val();
+        		let email = this.userInfo.email;
+        		let area = $("#area").val();
+        		let remark = $("#remark").val();
+        		
+        		if(name == "" || area =="" || remark==""){
+        			return alert("请先根据提示补全信息");
+        		}
+        		
+        		
+        		$.post("order/payOrder",{
+        			
+        			money:this.product_total,
+        			ano:this.receiptAddrFlag,
+        			remark:remark 
+        			
+        		},(data)=>{
+        			document.write(data);
+				},"text");		
+        		
+        	},
+        	
+			searchGood(){
+        		
+        		var searchText= jQuery.trim($('#search').val());
+        		var searchUrl =encodeURI("../product/shop-grid.html#content="+searchText);   //使用encodeURI编码
+        		window.location.href =searchUrl;
+        	},
+        	
+        	
+        	getAddrDialog(){
+    		    this.titleWrap = document.getElementById('title-wrap').getElementsByTagName('LI');
+    		    this.addrWrap = document.getElementById('addr-wrap');   //省市区显示模块
+    		    this.prov = '';
+    		    this.city = '';
+    		    this.country = '';
+    		    this.provVal = '';
+    		    this.cityVal = '';
+    		    this.countryVal = '';
+    		    this.showProv2();
+        	},
+        	
+        	//地址选择器
+        	getAddrWrap(e) {
+    	        
+        	    var n;
+        	    var e = e || window.event;
+        	    var target = e.target || e.srcElement;
+        	    if (target && target.nodeName == 'LI') {
+        	        /*先判断当前显示区域显示的是省市区的那部分*/
+        	        for (var z = 0; z < 3; z++) {
+        	            if (this.titleWrap[z].className == 'titleSel')
+        	                n = z;
+        	        }
+        	        /*显示的处理函数*/
+        	        switch (n) {
+        	            case 0:
+        	                this.showCity2($(target).attr('id'));
+        	                break;
+        	            case 1:
+        	                this.showCountry2($(target).attr('id'));
+        	                break;
+        	            case 2:
+        	                this.selectCountry($(target).attr('id'));
+        	                break;
+        	            default:
+        	                this.showProv2();
+        	        }
+        	    }
+        	},
+        	
+        	/* 初始化显示省份信息 */
+        	showProv2() {
+        		$('#addr-wrap').html('');
+        	    this.titleWrap[0].className = 'titleSel';
+        	    this.titleWrap[2].className = '';
+        	    $('#title-wrap-3').css("border-bottom","");
+        	    $('#title-wrap-1').css("border-bottom","2px solid #23B7E5")
+        	    var len = provice.length;
+        	    for (var i = 0; i < len; i++) {
+        	        var provLi = document.createElement('li');
+        	        provLi.innerText = provice[i]['name'];
+        	        provLi.index = i;
+        	        provLi.setAttribute('id',i+'');
+        	        this.addrWrap.appendChild(provLi);
+        	    }
+        	},
+        	
+        	
+        	/*选择省份之后显示该省下所有城市*/
+        	showCity2(index) {
+        		$('#addr-wrap').html('');        		
+        		this.addrWrap = document.getElementById('addr-wrap');   //省市区显示模块
+        	    this.prov = index;
+        	    this.provVal = provice[index].name;
+        	    this.titleWrap[0].className = '';
+        	    this.titleWrap[1].className = 'titleSel';
+        	    $('#title-wrap-1').css("border-bottom","");
+        	    $('#title-wrap-2').css("border-bottom","2px solid #23B7E5");
+        	    var cityLen = provice[index].city.length;
+        	    for (var j = 0; j < cityLen; j++) {
+        	        var cityLi = document.createElement('li');
+        	        cityLi.innerText = provice[index].city[j].name;
+        	        cityLi.index = j;
+        	        cityLi.setAttribute('id',j+'');
+        	        this.addrWrap.appendChild(cityLi);
+        	    }
+        	    $('#addr-show02').attr('value',this.provVal)
+        	},
+
+        	/*选择城市之后显示该城市下所有县区*/
+        	showCountry2(index) {
+        		$('#addr-wrap').html('');
+        	    this.city = index;
+        	    this.cityVal = provice[this.prov].city[index].name;
+        	    this.titleWrap[1].className = '';
+        	    this.titleWrap[2].className = 'titleSel';
+        	    $('#title-wrap-2').css("border-bottom","");
+        	    $('#title-wrap-3').css("border-bottom","2px solid #23B7E5");
+        	    var countryLen = provice[this.prov].city[index].districtAndCounty.length;
+        	    $('#addr-show02').attr('value',this.provVal + ' ' + this.cityVal)
+
+
+        	    for (var k = 0; k < countryLen; k++) {
+        	        var cityLi = document.createElement('li');
+        	        cityLi.innerText = provice[this.prov].city[index].districtAndCounty[k];
+        	        cityLi.index = k;
+        	        cityLi.setAttribute('id',k+'');
+        	        this.addrWrap.appendChild(cityLi);
+        	    }
+        	   
+        	},
+
+        	/*选中具体的县区*/
+        	selectCountry(index) {
+        		$('#btn2').attr('disabled',false)
+        		$('#btn2').css("background","#7fad39")
+        	    this.country = index;
+        	    this.countryVal = provice[this.prov].city[this.city].districtAndCounty[index];
+        	    $('#addr-show02').attr('value',this.provVal + ' ' + this.cityVal + ' ' + this.countryVal)
+        	    this.showProv2();
+        	},
+        	
+        	/*分别点击省市区标题的处理函数*/
+        	titleWrapMe(e) {
+        	    var e = e || window.event;
+        	    var target = e.target || e.srcElement;
+        	    if (target && target.nodeName == 'LI') {
+        	        for (var z = 0; z < 3; z++) {
+        	        	this.titleWrap[z].className = '';
+        	        }
+        	        target.className = 'titleSel';
+        	        if (target.value == '0') {
+        	        	this.showProv2();
+        	        } else if (target.value == '1') {
+        	        	this.showCity2(this.prov);
+        	        } else {
+        	        	this.showCountry2(this.city);
+        	        }
+        	    }
+        	},
+        	
+        	closeDialog(){
+        		//隐藏对话框
+        		this.centerDialogVisible = false;
+        	},
+        	
+        	
+        	addAddrInfo(){
+        		
+        		var name = $("#addr-name").val();
+        		var province = $("#addr-show02").val().split(' ')[0];
+        		var city = $("#addr-show02").val().split(' ')[1];
+        		var area = $("#addr-show02").val().split(' ')[2];
+        		var addr = $("#addr-detailAddr").val();      		
+        		
+        		if(name == '' || name == null || city == null || city == '' || addr == '' || addr == null){
+        			return alert("请完善收件信息");
+        		}
+        		
+        		$.post("order/addAddrInfo",{
+        			name:name,
+        			province:province,
+        			city:city,
+        			area:city,
+        			addr:addr	
+        		},(data)=>{
+        			
+        			if(data.code == 200){
+        				this.getAddrAll();
+        				this.centerDialogVisible = false;
+        			}
+        			
+        		})
+ 
+        	},
+        	
+        	setDefaultAddr(ano){
+        		
+        		$.post("order/setDefaultAddr",{
+        			ano:ano
+        		},(data)=>{
+        			
+        			if(data.code == 200){
+        				this.getAddrAll();
+        			}
+        			
+        		})
+        	},
+        	
+        	delAddrInfo(ano){
+        		
+        		$.post("order/delAddrInfoByAno",{
+        			ano:ano
+        		},(data)=>{
+        			
+        			if(data.code == 200){
+        				this.getAddrAll();
+        			}
+        			
+        		})
+        	},
+        	
+        	setReceiptAddr(ano){
+        		
+        		this.receiptAddrFlag = ano;
+        		location.href = "../order/checkout.html#" + this.receiptAddrFlag;
+        		this.getAddrAll();
+        	}
+        	
+        	
+		}
+		
+	})
+
+</script>
+
+</html>

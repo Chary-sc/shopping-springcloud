@@ -1,0 +1,28 @@
+spring:
+   profiles:
+      active:  dev-7766
+      
+---
+
+# 配置服务器端口
+server:
+   port: 7766
+  
+spring:
+   profiles: dev-7766
+   application:
+      name: product-server
+   
+   cloud:
+      config:
+         label: master   
+         name: product #{name}-{profile}.yml
+         profile: dev
+         discovery:
+            enabled: true
+            service-id: config-server
+    
+eureka:
+   client:
+      service-url:
+         defaultZone: http://127.0.0.1:5555/eureka    

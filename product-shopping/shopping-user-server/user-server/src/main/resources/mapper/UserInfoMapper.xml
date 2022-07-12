@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chary.shopping.mapper.UserInfoMapper">
+	<insert id="reg" parameterType="UserInfo">
+		insert into userinfo values(0,#{email},md5(#{pwd}),1) 
+	</insert>
+	
+	<select id="login" parameterType="UserInfo" resultType="UserInfo">
+		select uno,email,pwd,status from userinfo where email=#{email} and pwd=md5(#{pwd})
+	</select>
+	
+	<select id="findEmail" parameterType="String" resultType="UserInfo">
+		select uno,email,pwd,status from userinfo where email=#{email}
+	</select>
+	
+	<select id="findUserInfo" resultType="UserInfo">
+		select uno,email,pwd,status from userinfo
+	</select>
+	
+	<insert id="regByManager" parameterType="UserInfo">
+		insert into userinfo values(0,#{email},md5(#{pwd}),1) 
+	</insert>
+	
+	<delete id="delUserByUno" parameterType="int">
+		delete from userinfo where uno = #{uno}
+	</delete>
+	
+	<update id="upUserStatusByUno" parameterType="UserInfo">
+		update userinfo set status = #{status} where uno=#{uno}
+	</update>
+	
+	<update id="upUserEmailByUno" parameterType="UserInfo">
+		update userinfo set email = #{email} where uno=#{uno}
+	</update>
+	
+</mapper>
